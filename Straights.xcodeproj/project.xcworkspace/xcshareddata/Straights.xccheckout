@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D3F89B1F-A237-495F-9D3D-30F93C59C67F</string>
+	<string>3DDB765A-3672-48B2-A30F-C902FACC3592</string>
 	<key>IDESourceControlProjectName</key>
 	<string>Straights</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>04CE052D-7E2F-4E08-BC45-419FA3465C1E</key>
-		<string>https://github.com/ShouboWang/Straights.git</string>
+		<key>5DB6A758-1C4C-41DC-BB51-DEF918F367BA</key>
+		<string>https://github.com/ZiyiZhao/Straight_GUI.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>Straights.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>04CE052D-7E2F-4E08-BC45-419FA3465C1E</key>
+		<key>5DB6A758-1C4C-41DC-BB51-DEF918F367BA</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/ShouboWang/Straights.git</string>
+	<string>https://github.com/ZiyiZhao/Straight_GUI.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>04CE052D-7E2F-4E08-BC45-419FA3465C1E</string>
+	<string>5DB6A758-1C4C-41DC-BB51-DEF918F367BA</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>04CE052D-7E2F-4E08-BC45-419FA3465C1E</string>
+			<string>5DB6A758-1C4C-41DC-BB51-DEF918F367BA</string>
 			<key>IDESourceControlWCCName</key>
-			<string>Straights</string>
+			<string>Straight_GUI</string>
 		</dict>
 	</array>
 </dict>
