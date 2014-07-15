@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>11</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>539</x>
+      <y>132</y>
+      <w>275</w>
+      <h>198</h>
+    </coordinates>
+    <panel_attributes>Game
+--
++ Game(): void
++ ~Game(): void
++ startGame(): void
+--
+- invitePlayers(): void
+- players_[4]: Player*
+- deck_: Deck*
+- cardsOnTable_: vector&lt;Cards*&gt;
+- startingPlayer_: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>495</x>
+      <y>429</y>
+      <w>561</w>
+      <h>451</h>
+    </coordinates>
+    <panel_attributes>Player
+--
++ Player(string): void        
++ ~Player(): void                                 
++ int getScore() const: int                    
++ void setScore(const int &amp;): void              
++ int calculateScore() const: int            
++ void getDeltCards(Card*): void               
++ bool hasSevenSpade() const: bool                 
++ void printDiscardedCards() const: void 
++ void clearHand(): void 
++ virtual turn(vector&lt;Card*&gt;) const = 0: Command*
++ virtual displayHand(vector&lt;Card*&gt;) const = 0: void
++ playCard(const Suit, const Rank): Card*                
++ discardCard(const Suit, const Rank): void
++ checkCardPlayable(const Card*, const std::vector&lt;Card*&gt;) const: bool
+--
+- operator=(Player&amp;): Player&amp;            
+- displayGameTable(const vector&lt;Card*&gt;, const vector&lt;Card*&gt;):void  
+--
+# Player(const Player&amp;): void 
+# PlayerData* playerData: PlayerData*
+# static const suits[SUIT_COUNT]: string
+# static const ranks[RANK_COUNT]: string
+# getLegalCards(const vector&lt;Card*&gt;) const: vector&lt;Card*&gt;
+# removeCardFromHand(const Suit, const Rank): Card*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>11</x>
+      <y>143</y>
+      <w>231</w>
+      <h>187</h>
+    </coordinates>
+    <panel_attributes>Deck
+--
++ Deck(): void
++ ~Deck(): void
++ shuffle(): void
++ getNextCard(): Card*
++ displayDeck() const: void
+--
+- currentCardIndex_: int 
+- CARD_COUNT: const int  
+- cards_[52]: Cards*       </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>11</x>
+      <y>451</y>
+      <w>231</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>Card
+--
++ Card(Suit, Rank)
++ getSuit(): Suit
++ getRank(): Rank
+--
+- suit_: Suit
+- rank_: Rank</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>759</x>
+      <y>1001</y>
+      <w>352</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>ComputerPlayer
+--
++ ComputerPlayer(const string): void         
++ ComputerPlayer(const Player&amp;): void
++ turn(vector&lt;Card*&gt;) const: Command*                              
++ displayHand(vector&lt;Card*&gt;) const: void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>154</x>
+      <y>1001</y>
+      <w>583</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>HumanPlayer
+--
++ HumanPlayer(string): void
++ turn(vector&lt;Card*&gt;) const: Command*
++ displayHand(vector&lt;Card*&gt;) const: void
+--
+- displayGameTable(const vector&lt;Card*&gt;, const vector&lt;Card*&gt;) const: void 
+- sort(const vector&lt;Card*&gt;) const: string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>715</x>
+      <y>297</y>
+      <w>54</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=4
+</panel_attributes>
+    <additional_attributes>33;33;33;132</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>209</x>
+      <y>143</y>
+      <w>351</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+</panel_attributes>
+    <additional_attributes>330;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>704</x>
+      <y>847</y>
+      <w>44</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>33;33;33;99</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>506</x>
+      <y>913</y>
+      <w>407</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>33;33;396;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>869</x>
+      <y>913</y>
+      <w>44</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m2=0.4
+</panel_attributes>
+    <additional_attributes>33;33;33;88</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>506</x>
+      <y>913</y>
+      <w>44</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m2=0.4</panel_attributes>
+    <additional_attributes>33;33;33;88</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>77</x>
+      <y>297</y>
+      <w>54</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=52
+</panel_attributes>
+    <additional_attributes>33;33;33;154</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>209</x>
+      <y>473</y>
+      <w>307</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+r1=1
+r2=0..52
+
+</panel_attributes>
+    <additional_attributes>286;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>330</x>
+      <y>330</y>
+      <w>165</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>struct:Commands
+--
++ type: Type
++ card: Card
++ Command(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>462</x>
+      <y>352</y>
+      <w>307</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>286;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>99</x>
+      <y>737</y>
+      <w>297</w>
+      <h>143</h>
+    </coordinates>
+    <panel_attributes>struct:PlayerData
+--
++ playerName_: string
++ playerScore_: int
++ cardsInHand_: vector&lt;Card*&gt;
++ discardedCards_: vector&lt;Card*&gt;
++ PlayerData(const string): void
++ PlayerData(const PlayerData&amp;): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>363</x>
+      <y>770</y>
+      <w>153</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=1
+
+
+</panel_attributes>
+    <additional_attributes>132;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>539</y>
+      <w>62</w>
+      <h>549</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..13
+</panel_attributes>
+    <additional_attributes>33;33;33;528</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>1034</y>
+      <w>165</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>154;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>935</y>
+      <w>814</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>33;33;803;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>770</x>
+      <y>935</y>
+      <w>44</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>33;66;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>0</x>
+      <y>770</y>
+      <w>120</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+r1=1</panel_attributes>
+    <additional_attributes>99;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>572</x>
+      <y>0</y>
+      <w>231</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>PlayStraight
+--
++ main(int, char*): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>649</x>
+      <y>22</y>
+      <w>54</w>
+      <h>131</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+r2=1
+r1=1
+</panel_attributes>
+    <additional_attributes>33;33;33;110</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>264</x>
+      <y>253</y>
+      <w>296</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=1
+</panel_attributes>
+    <additional_attributes>275;33;33;33</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>264</x>
+      <y>253</y>
+      <w>54</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=-
+</panel_attributes>
+    <additional_attributes>33;33;33;209</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>209</x>
+      <y>429</y>
+      <w>109</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m2=0..52</panel_attributes>
+    <additional_attributes>33;33;88;33</additional_attributes>
+  </element>
+</diagram>

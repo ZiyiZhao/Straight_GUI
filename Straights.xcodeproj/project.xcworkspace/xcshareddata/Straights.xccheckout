@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D3F89B1F-A237-495F-9D3D-30F93C59C67F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Straights</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>04CE052D-7E2F-4E08-BC45-419FA3465C1E</key>
+		<string>https://github.com/ShouboWang/Straights.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Straights.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>04CE052D-7E2F-4E08-BC45-419FA3465C1E</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ShouboWang/Straights.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>04CE052D-7E2F-4E08-BC45-419FA3465C1E</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>04CE052D-7E2F-4E08-BC45-419FA3465C1E</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Straights</string>
+		</dict>
+	</array>
+</dict>
+</plist>
