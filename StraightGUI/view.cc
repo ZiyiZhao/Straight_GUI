@@ -21,11 +21,7 @@
 
 // Creates buttons with labels. Sets butBox elements to have the same size, 
 // with 10 pixels between widgets
-<<<<<<< HEAD
-View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(true,10), heartSuitCardsBox_(true,5), spadeSuitCardsBox_(true,5), diamondSuitCardsBox_(true,5), clubSuitCardsBox_(true,5), cardOnHand_(true, 5), cardFrame_("Your Cards:") {
-=======
 View::View(Controller *c, Model *m){
->>>>>>> FETCH_HEAD
 
 	// Sets some properties of the window.
     set_title( "Stright GUI Game" );
@@ -50,10 +46,6 @@ View::View(Controller *c, Model *m){
                           sigc::mem_fun(*this, &View::on_menuAction_save) );
     m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore a saved game"),
                           sigc::mem_fun(*this, &View::on_menuAction_restore) );
-<<<<<<< HEAD
-    
-=======
->>>>>>> FETCH_HEAD
     m_refActionGroup->add( Gtk::Action::create("Quit", Gtk::Stock::QUIT),
                           sigc::mem_fun(*this, &View::on_menuAction_quit) );
     
@@ -92,22 +84,19 @@ View::View(Controller *c, Model *m){
 	gameTableView_ = new TableView(model_, &gameTableWrapper_);
 	gameWindowWrapper_.add(gameTableWrapper_);
 
-<<<<<<< HEAD
-	verticalFrame_.add(cardFrame_);
-    cardFrame_.add(cardOnHand_);
-    
-    for (int i = 0; i < 13; i++){
-        cardOnHandList_[i] = new CardButton(model_);
-        cardOnHand_.pack_start(*cardOnHandList_[i]);
-    }
-=======
->>>>>>> FETCH_HEAD
 
 
 	/*		Player Status 		*/
 	playerStatusView_ = new PlayerStatusView(model_, &playerStatusWrapper_);
 	gameWindowWrapper_.add(playerStatusWrapper_);
-	
+
+    verticalFrame_.add(cardFrame_);
+    cardFrame_.add(cardOnHand_);
+    
+    for (int i = 0; i < 13; i++){
+        cardOnHandList_[i] = new CardButton(model_);
+        cardOnHand_.pack_start(*cardOnHandList_[i]);
+    }	
 
     show_all();
     model_->subscribe(this);

@@ -20,13 +20,9 @@
 #include <gtkmm/button.h>
 #include <gtkmm/frame.h>
 #include "observer.h"
-<<<<<<< HEAD
 #include "PlayerStatus.h"
-#include "CardButton.h"
-=======
-#include "PlayerStatusView.h"
 #include "TableView.h"
->>>>>>> FETCH_HEAD
+#include "CardButton.h"
 
 class Controller;
 class Model;
@@ -56,19 +52,13 @@ private:
 	TableView *gameTableView_;
 
 	// Player Status
-<<<<<<< HEAD
-	Gtk::HBox playerStatusBox_;
-	PlayerStatus *playerStatus_[4];
+	Gtk::Frame playerStatusWrapper_;
+	PlayerStatusView *playerStatusView_;
     
     //player's card on hand
     Gtk::HBox cardOnHand_;
     Gtk::Frame cardFrame_;
     CardButton *cardOnHandList_[13];
-    
-=======
-	Gtk::Frame playerStatusWrapper_;
-	PlayerStatusView *playerStatusView_;
->>>>>>> FETCH_HEAD
 
 	// Action for menu items
 	virtual void on_menuAction_new();
