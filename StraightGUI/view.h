@@ -19,10 +19,14 @@
 #include <gtkmm/box.h>
 #include <gtkmm/button.h>
 #include <gtkmm/frame.h>
-#include "DeckGUI.h"
 #include "observer.h"
+<<<<<<< HEAD
 #include "PlayerStatus.h"
 #include "CardButton.h"
+=======
+#include "PlayerStatusView.h"
+#include "TableView.h"
+>>>>>>> FETCH_HEAD
 
 class Controller;
 class Model;
@@ -41,29 +45,18 @@ private:
 	// Strategy Pattern member (plus signal handlers)
 	Controller *controller_;
 
-	// Card Images
-	DeckGUI deck;
+	Gtk::VBox gameWindowWrapper_;
 
-	// Table contents
-	Gtk::VBox verticalFrame_;			// Holds the widgets for all the components
-	
-
-	// Cards on table
-    Glib::RefPtr<Gtk::UIManager>   m_refUIManager;
+	// Menu variables
+	Glib::RefPtr<Gtk::UIManager>   m_refUIManager;
 	Glib::RefPtr<Gtk::ActionGroup> m_refActionGroup;
 
-	Gtk::HBox heartSuitCardsBox_;		// Holds cards with suite heart
-	Gtk::HBox spadeSuitCardsBox_;		// Holds cards with suite spade
-	Gtk::HBox diamondSuitCardsBox_;		// Holds cards with suite diamond
-	Gtk::HBox clubSuitCardsBox_;		// Holds cards with suite club 
-
-
-    Gtk::Image *heartCardImg[13];          // Images to display.
-	Gtk::Image *spadeCardImg[13];          // Images to display.
-	Gtk::Image *diamondCardImg[13];          // Images to display.
-	Gtk::Image *clubCardImg[13];          // Images to display.
+	// Game table and cards
+	Gtk::Frame gameTableWrapper_;
+	TableView *gameTableView_;
 
 	// Player Status
+<<<<<<< HEAD
 	Gtk::HBox playerStatusBox_;
 	PlayerStatus *playerStatus_[4];
     
@@ -72,6 +65,10 @@ private:
     Gtk::Frame cardFrame_;
     CardButton *cardOnHandList_[13];
     
+=======
+	Gtk::Frame playerStatusWrapper_;
+	PlayerStatusView *playerStatusView_;
+>>>>>>> FETCH_HEAD
 
 	// Action for menu items
 	virtual void on_menuAction_new();
