@@ -15,30 +15,29 @@
 #include "controller.h"
 #include "model.h"
 #include "subject.h"
-#include "DeckGUI.h"
 #include <iostream>
 #include <sstream>
+#include "TableView.h"
 
 // Creates buttons with labels. Sets butBox elements to have the same size, 
 // with 10 pixels between widgets
-View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(true,10), heartSuitCardsBox_(true,5), spadeSuitCardsBox_(true,5), diamondSuitCardsBox_(true,5), clubSuitCardsBox_(true,5) {
+View::View(Controller *c, Model *m){
 
 	// Sets some properties of the window.
-    set_title( "CS246 MVC example" );
+    set_title( "Stright GUI Game" );
 	set_border_width( 10 );
 	set_default_size(1000,500);
+
+	model_ = m;
+	controller_ = c;
+	add(gameWindowWrapper_);
 	
 
-	/*
-		The Menu Bar
-	*/
+	/*		The Menubar 	*/
 
-	// Add panels to the window
-	add(verticalFrame_);
-
-	//Define the actions:
+	// Create the actions:
     m_refActionGroup = Gtk::ActionGroup::create();
-    
+    // Define the actions:
     m_refActionGroup->add( Gtk::Action::create("MenuFile", "_Menu") );
     m_refActionGroup->add( Gtk::Action::create("NewGame", Gtk::Stock::NEW, "New Game"),
                           sigc::mem_fun(*this, &View::on_menuAction_new));
@@ -47,10 +46,6 @@ View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(
                           sigc::mem_fun(*this, &View::on_menuAction_save) );
     m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore a saved game"),
                           sigc::mem_fun(*this, &View::on_menuAction_restore) );
-    
-    //register_stock_items(); //Makes the "example_stock_rain" stock item available.
-    
-    
     m_refActionGroup->add( Gtk::Action::create("Quit", Gtk::Stock::QUIT),
                           sigc::mem_fun(*this, &View::on_menuAction_quit) );
     
@@ -83,58 +78,20 @@ View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(
     Gtk::Widget* pMenuBar = m_refUIManager->get_widget("/MenuBar") ;
 
     // Add the menu bar to the frame
-    verticalFrame_.pack_start(*pMenuBar, Gtk::PACK_SHRINK);
+    gameWindowWrapper_.pack_start(*pMenuBar, Gtk::PACK_SHRINK);
+
+    /*	Cards and Table 	*/
+	gameTableView_ = new TableView(model_, &gameTableWrapper_);
+	gameWindowWrapper_.add(gameTableWrapper_);
 
 
-    /*
-		Cards and Table
-    */
 
-	const Glib::RefPtr<Gdk::Pixbuf> emptyCardPixbuf = deck.empty();
-
-	//	Add the cards 
-	verticalFrame_.add(heartSuitCardsBox_);
-	verticalFrame_.add(spadeSuitCardsBox_);
-	verticalFrame_.add(diamondSuitCardsBox_);
-	verticalFrame_.add(clubSuitCardsBox_);
-
-	// Initalize the card image as empty
-	// Add them to the hand
-	for (int i = 0; i < 13; i++ ) {
-		heartCardImg[i] = new Gtk::Image( emptyCardPixbuf );
-		spadeCardImg[i] = new Gtk::Image( emptyCardPixbuf );
-		diamondCardImg[i] = new Gtk::Image( emptyCardPixbuf );
-		clubCardImg[i] = new Gtk::Image( emptyCardPixbuf );
-		heartSuitCardsBox_.add( *heartCardImg[i] );
-		spadeSuitCardsBox_.add( *spadeCardImg[i] );
-		diamondSuitCardsBox_.add( *diamondCardImg[i] );
-		clubSuitCardsBox_.add( *clubCardImg[i] );
-	} 
-
-	/*
-	Player Status
-	*/
+	/*		Player Status 		*/
+	playerStatusView_ = new PlayerStatusView(model_, &playerStatusWrapper_);
+	gameWindowWrapper_.add(playerStatusWrapper_);
 	
-	verticalFrame_.add(playerStatusBox_);
-	for(int i = 0; i < 4; i++) {
-
-		// Add the player
-		std::ostringstream oss;
-		oss << "Player ";
-		oss << (i + 1);
-		Gtk::Frame *playerFrame = new Gtk::Frame(oss.str());
-		playerStatus_[i] = new PlayerStatus(playerFrame, 0, 0, false);
-		playerStatusBox_.add(*playerFrame);
-
-	}
-
-	
-
-
 
     show_all();
-    show_all_children();
-
     model_->subscribe(this);
 
 } // View::View
