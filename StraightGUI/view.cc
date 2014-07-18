@@ -90,7 +90,7 @@ View::View(Controller *c, Model *m){
 	playerStatusView_ = new PlayerStatusView(model_, &playerStatusWrapper_);
 	gameWindowWrapper_.add(playerStatusWrapper_);
 
-    verticalFrame_.add(cardFrame_);
+    gameWindowWrapper_.add(cardFrame_);
     cardFrame_.add(cardOnHand_);
     
     for (int i = 0; i < 13; i++){

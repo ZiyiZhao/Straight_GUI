@@ -11,14 +11,9 @@
 #ifndef CARDBUTTON_H
 #define CARDBUTTON_H
 
-#include <gtkmm.h>
-#include <gtkmm/window.h>
 #include <gtkmm/image.h>
-#include <gtkmm/box.h>
 #include <gtkmm/button.h>
-#include <gtkmm/frame.h>
 #include "observer.h"
-#include "view.h"
 #include "controller.h"
 #include "model.h"
 #include "subject.h"

@@ -14,7 +14,7 @@
 #define MVC_MODEL_H
 
 #include "subject.h"
-#include "Game.h"
+//#include "Game.h"
 
 const int numFaces = 6;
 const int numSuits = 4;
@@ -32,7 +32,7 @@ public:
     void resetCards();
 private:
     int topCard_;
-    Game *newGame;
+    //Game *newGame;
     
     
 }; // Model

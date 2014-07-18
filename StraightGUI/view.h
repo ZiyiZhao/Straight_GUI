@@ -20,7 +20,7 @@
 #include <gtkmm/button.h>
 #include <gtkmm/frame.h>
 #include "observer.h"
-#include "PlayerStatus.h"
+#include "PlayerStatusView.h"
 #include "TableView.h"
 #include "CardButton.h"
 
