@@ -21,7 +21,7 @@
 
 // Creates buttons with labels. Sets butBox elements to have the same size, 
 // with 10 pixels between widgets
-View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(true,10), heartSuitCardsBox_(true,5), spadeSuitCardsBox_(true,5), diamondSuitCardsBox_(true,5), clubSuitCardsBox_(true,5) {
+View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(true,10), heartSuitCardsBox_(true,5), spadeSuitCardsBox_(true,5), diamondSuitCardsBox_(true,5), clubSuitCardsBox_(true,5), cardOnHand_(true, 5), cardFrame_("Your Cards:") {
 
 	// Sets some properties of the window.
     set_title( "CS246 MVC example" );
@@ -47,9 +47,6 @@ View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(
                           sigc::mem_fun(*this, &View::on_menuAction_save) );
     m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore a saved game"),
                           sigc::mem_fun(*this, &View::on_menuAction_restore) );
-    
-    //register_stock_items(); //Makes the "example_stock_rain" stock item available.
-    
     
     m_refActionGroup->add( Gtk::Action::create("Quit", Gtk::Stock::QUIT),
                           sigc::mem_fun(*this, &View::on_menuAction_quit) );
@@ -77,7 +74,7 @@ View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(
     try {
         m_refUIManager->add_ui_from_string(ui_info);
     } catch(const Glib::Error& ex) {
-        std::cerr << "building menus and toolbars failed: " <<  ex.what();
+        std::cerr << "building menus failed: " <<  ex.what();
     } // catch
     
     Gtk::Widget* pMenuBar = m_refUIManager->get_widget("/MenuBar") ;
@@ -128,7 +125,13 @@ View::View(Controller *c, Model *m) : model_(m), controller_(c), verticalFrame_(
 
 	}
 
-	
+	verticalFrame_.add(cardFrame_);
+    cardFrame_.add(cardOnHand_);
+    
+    for (int i = 0; i < 13; i++){
+        cardOnHandList_[i] = new CardButton(model_);
+        cardOnHand_.pack_start(*cardOnHandList_[i]);
+    }
 
 
 

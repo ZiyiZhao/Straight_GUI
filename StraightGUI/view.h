@@ -22,6 +22,7 @@
 #include "DeckGUI.h"
 #include "observer.h"
 #include "PlayerStatus.h"
+#include "CardButton.h"
 
 class Controller;
 class Model;
@@ -65,6 +66,12 @@ private:
 	// Player Status
 	Gtk::HBox playerStatusBox_;
 	PlayerStatus *playerStatus_[4];
+    
+    //player's card on hand
+    Gtk::HBox cardOnHand_;
+    Gtk::Frame cardFrame_;
+    CardButton *cardOnHandList_[13];
+    
 
 	// Action for menu items
 	virtual void on_menuAction_new();
