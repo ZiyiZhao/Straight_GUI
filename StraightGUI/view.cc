@@ -84,19 +84,13 @@ View::View(Controller *c, Model *m){
 	gameTableView_ = new TableView(model_, &gameTableWrapper_);
 	gameWindowWrapper_.add(gameTableWrapper_);
 
-
-
 	/*		Player Status 		*/
 	playerStatusView_ = new PlayerStatusView(model_, &playerStatusWrapper_);
 	gameWindowWrapper_.add(playerStatusWrapper_);
 
-    gameWindowWrapper_.add(cardFrame_);
-    cardFrame_.add(cardOnHand_);
-    
-    for (int i = 0; i < 13; i++){
-        cardOnHandList_[i] = new CardButton(model_);
-        cardOnHand_.pack_start(*cardOnHandList_[i]);
-    }	
+    /*      Player Options      */
+    playerHandView_ = new PlayerHandView(model_, &playerHandWrapper_);
+    gameWindowWrapper_.add(playerHandWrapper_);
 
     show_all();
     model_->subscribe(this);

@@ -21,8 +21,9 @@
 #include <gtkmm/frame.h>
 #include "observer.h"
 #include "PlayerStatusView.h"
+#include "PlayerHandView.h"
 #include "TableView.h"
-#include "CardButton.h"
+//#include "CardButton.h"
 
 class Controller;
 class Model;
@@ -56,9 +57,8 @@ private:
 	PlayerStatusView *playerStatusView_;
     
     //player's card on hand
-    Gtk::HBox cardOnHand_;
-    Gtk::Frame cardFrame_;
-    CardButton *cardOnHandList_[13];
+    Gtk::Frame playerHandWrapper_;
+    PlayerHandView *playerHandView_;
 
 	// Action for menu items
 	virtual void on_menuAction_new();
