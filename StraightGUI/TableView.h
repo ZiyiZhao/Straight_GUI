@@ -56,7 +56,7 @@ private:
 	// Card image array
     Gtk::Image *heartCardImg_[13];         		
 	Gtk::Image *spadeCardImg_[13];      	
-	Gtk::Image *diamondCardImg_[13];     	  	
+	Gtk::Image *diamondCardImg_[13];    	  	
 	Gtk::Image *clubCardImg_[13];          		
 
 

@@ -9,8 +9,9 @@
 #include <gtkmm/frame.h>
 #include <gtkmm/box.h>
 #include "observer.h"
+#include "model.h"
 
-class Model;
+//class Model;
 
 class PlayerStatusView : public Observer{
 public:

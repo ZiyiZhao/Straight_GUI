@@ -34,7 +34,7 @@ public:
 	
 private:
 	vector<Gtk::CheckButton *>   buttons;       // Buttons for the messages.
-    int playerList[4];                          //0 represents computer player, and 1 represent human player
+    bool playerList_[4];                          //0 represents computer player, and 1 represent human player
     Model* model_;
 };
 #endif

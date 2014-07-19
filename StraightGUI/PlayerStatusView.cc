@@ -5,6 +5,7 @@
 
 
 #include "PlayerStatusView.h"
+#include <iostream>
 #include <gtkmm/label.h>
 #include <sstream>
 
@@ -13,16 +14,12 @@ PlayerStatusView::PlayerStatusView(Model *model, Gtk::Frame *frame){
 	frame_ = frame;
 	model_ = model;
 
-
 	// Create one frame for each player and add it to HBox
 	// Create one label for each player and add it to frame
 	for(int i = 0; i < 4; i++) {
-		std::ostringstream oss;
-		oss << "Player ";
-		oss << (i+1);
 
-		playerStatus_[i] = new Gtk::Frame(oss.str());
-		Gtk::Label *playerLabelStatus = new Gtk::Label("Player Point:     0\nPlayer Discards:  0\n", 0, 0, false);
+		playerStatus_[i] = new Gtk::Frame(model_->getPlayerType()i]);
+		Gtk::Label *playerLabelStatus = new Gtk::Label(model_->getPlayerStatus()[i], 0, 0, false);
 		
 		playerStatus_[i]->add(*playerLabelStatus);
 		playerStatusHBox_.add(*playerStatus_[i]);

@@ -48,12 +48,12 @@ DialogView::DialogView( Gtk::Window & parentWindow, Model* m  ) : Dialog( "Playe
             for ( int i = 0; i < 4; i++ ) {
 				if ( buttons[i]->get_active() ) {
                     //if active, then the player is choosen to be human player
-					playerList[i] = 1;
-                    std::cout << playerList[i]<<std::endl;
+					playerList_[i] = true;
+                    std::cout << playerList_[i]<<std::endl;
 				} else {
                     //computer player otherwise
-                    playerList[i] = 0;
-                    std::cout << playerList[i]<<std::endl;
+                    playerList_[i] = false;
+                    std::cout << playerList_[i]<<std::endl;
                 }  //if
 			} // for
             //call on click event to give to controller

@@ -11,6 +11,7 @@
 
 #include "TableView.h"
 #include "subject.h"
+#include <iostream>
 
 // TableView class implementation : 
 //      Responsible for displaying the cards currently played on table
@@ -29,28 +30,39 @@ TableView::TableView(Model *m, Gtk::Frame *f) : heartSuitCardsHBox_(true,5), spa
 
     //  Add cards to table 
     tableWrapper_.add(heartSuitCardsHBox_);
-    tableWrapper_.add(spadeSuitCardsHBox_);
     tableWrapper_.add(diamondSuitCardsHBox_);
+    tableWrapper_.add(spadeSuitCardsHBox_);
     tableWrapper_.add(clubSuitCardsHBox_);
 
 
     // Create empty card image
 	const Glib::RefPtr<Gdk::Pixbuf> emptyCardPixbuf = deck_.null();
 
-	// Initalize each index of the card image as empty cards
-    // Add the image to the cardHbox
-	for (int i = 0; i < 13; i++ ) {
+    // Get the arrays
+    int *tableHeart_ = model_->getTableHeart();
+    int *tableSpade_ = model_->getTableSpade();
+    int *tableDiamond_ = model_->getTableDiamond();
+    int *tableClub_ = model_->getTableClub();
 
-		heartCardImg_[i] = new Gtk::Image( emptyCardPixbuf );
-		spadeCardImg_[i] = new Gtk::Image( emptyCardPixbuf );
-		diamondCardImg_[i] = new Gtk::Image( emptyCardPixbuf );
-		clubCardImg_[i] = new Gtk::Image( emptyCardPixbuf );
-		
+    for(int i = 0 ; i < 13; i++) {
+
+        const Glib::RefPtr<Gdk::Pixbuf> pixHeart = deck_.image((Rank)tableHeart_[i*2],(Suit)tableHeart_[i*2+1]);
+        heartCardImg_[i] = new Gtk::Image( pixHeart );
         heartSuitCardsHBox_.add( *heartCardImg_[i] );
-		spadeSuitCardsHBox_.add( *spadeCardImg_[i] );
-		diamondSuitCardsHBox_.add( *diamondCardImg_[i] );
-		clubSuitCardsHBox_.add( *clubCardImg_[i] );
-	} 
+
+        const Glib::RefPtr<Gdk::Pixbuf> pixDiamond = deck_.image((Rank)tableDiamond_[i*2],(Suit)tableDiamond_[i*2+1]);
+        diamondCardImg_[i] = new Gtk::Image( pixDiamond );
+        diamondSuitCardsHBox_.add( *diamondCardImg_[i] );
+
+        const Glib::RefPtr<Gdk::Pixbuf> pixSpade = deck_.image((Rank)tableSpade_[i*2],(Suit)tableSpade_[i*2+1]);
+        spadeCardImg_[i] = new Gtk::Image( pixSpade );
+        spadeSuitCardsHBox_.add( *spadeCardImg_[i] );
+
+        const Glib::RefPtr<Gdk::Pixbuf> pixClub = deck_.image((Rank)tableClub_[i*2],(Suit)tableClub_[i*2+1]);
+        clubCardImg_[i] = new Gtk::Image( pixClub );
+        clubSuitCardsHBox_.add( *clubCardImg_[i] );
+        
+    }
 
 }
 
