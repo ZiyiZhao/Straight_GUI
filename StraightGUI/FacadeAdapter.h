@@ -6,7 +6,7 @@
 #ifndef MVC_FACADEADAPTER_H
 #define MVC_FACADEADAPTER_H
 
-#include "Game.h"
+#include "GameTable.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include "Deck.h"

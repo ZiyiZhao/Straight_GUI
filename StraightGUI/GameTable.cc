@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Jack,Errin. All rights reserved.
 //
 
-#include "Game.h"
+#include "GameTable.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
