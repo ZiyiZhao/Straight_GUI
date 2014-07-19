@@ -11,25 +11,33 @@
 #include <gtkmm/button.h>
 #include "observer.h"
 #include "DeckGUI.h"
+#include "controller.h"
+#include "CardButton.h"
 
 class Model;
+class Controller;
+class CardButton;
 
 class PlayerHandView : public Observer{
 public:
-   	PlayerHandView(Model* ,Gtk::Frame*);	// Constructor(model, playerNum, score, discards, isAI)
+   	PlayerHandView(Model* ,Gtk::Frame*, Controller *c);	// Constructor(model, playerNum, score, discards, isAI)
    	~PlayerHandView();
-   	void update();
+   	virtual void update();
 private:
 	Gtk::Frame *frame_;
 	Model *model_;
+    
+	Controller *controller_;                // Strategy Pattern member (plus signal handlers)
 
-	DeckGUI deck_;
+	DeckGUI deck_;                          // Card Images
 
 	Gtk::VBox playerOption_;
 	Gtk::HBox playerHand_;
 
 	Gtk::Button rageQuitButton_;
-	Gtk::Button *playerCards_[13];
+	CardButton *playerCards_[13];
+    void cardButtonClicked(const int&, const int&);
+    void rageButtonClicked();
 };
 #endif
 

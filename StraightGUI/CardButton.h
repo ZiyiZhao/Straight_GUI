@@ -13,35 +13,18 @@
 
 #include <gtkmm/image.h>
 #include <gtkmm/button.h>
-#include "observer.h"
-#include "controller.h"
-#include "model.h"
-#include "subject.h"
-#include "DeckGUI.h"
 
-
-class Controller;
-class DeckGUI;
-class Observer;
-
-class CardButton: public Gtk::Button, public Observer {
+class CardButton: public Gtk::Button{
 public:
-    CardButton(Model*);
+    CardButton(const int&, const int&);
     ~CardButton(){};
-    virtual void update();	         //modify the button image given address of the cardImage
+    int getRank();
+    int getSuit();
     
 
 private:
-    Gtk::Button buttonCard;
-    Gtk::Image card;
-    Model *model_;
-    // Card Images
-	DeckGUI deck;
-    
-    // Strategy Pattern member (plus signal handlers)
-	Controller *controller_;
-    
-    void onButtonClicked();
+    int rank_;
+    int suit_;
 };
 
 

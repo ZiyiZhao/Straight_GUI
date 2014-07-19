@@ -17,11 +17,12 @@
 Controller::Controller(Model *m) : model_(m) {}
 
 
-void Controller::nextButtonClicked() {
-     //model_->nextCard();
-} 
+void Controller::cardButtonClicked(const int& rank, const int& suit){
+    //passed in the rank and the suit of the card
 
+}
 
-void Controller::resetButtonClicked() {
-     //model_->resetCards();
-} 
+void Controller::rageButtonClicked(){
+    //this is rage
+
+}
