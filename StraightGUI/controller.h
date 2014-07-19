@@ -20,12 +20,12 @@ class Model;
 
 class Controller {
 public:
-   Controller( Model* );
-   void nextButtonClicked();
-   void resetButtonClicked();
+    Controller( Model* );
+    void cardButtonClicked(const int&, const int&);
+    void rageButtonClicked();
 private:
-   Model *model_;
-}; // Controller
+    Model *model_;
+};  // Controller
 
 
 #endif

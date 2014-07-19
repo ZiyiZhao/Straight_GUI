@@ -22,15 +22,13 @@
 
 // Creates buttons with labels. Sets butBox elements to have the same size, 
 // with 10 pixels between widgets
-View::View(Controller *c, Model *m){
+View::View(Controller *c, Model *m): model_(m), controller_(c){
 
 	// Sets some properties of the window.
     set_title( "Stright GUI Game" );
 	set_border_width( 10 );
 	set_default_size(1000,500);
 
-	model_ = m;
-	controller_ = c;
 	add(gameWindowWrapper_);
 	
 
@@ -90,7 +88,7 @@ View::View(Controller *c, Model *m){
 	gameWindowWrapper_.add(playerStatusWrapper_);
 
     /*      Player Options      */
-    playerHandView_ = new PlayerHandView(model_, &playerHandWrapper_);
+    playerHandView_ = new PlayerHandView(model_, &playerHandWrapper_, controller_);
     gameWindowWrapper_.add(playerHandWrapper_);
 
     show_all();

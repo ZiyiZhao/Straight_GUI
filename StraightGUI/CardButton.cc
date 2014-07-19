@@ -11,28 +11,14 @@
 
 
 #include <gtkmm.h>
-
-#include "observer.h"
-#include "view.h"
-#include "controller.h"
-#include "model.h"
-#include "subject.h"
-#include "DeckGUI.h"
 #include "CardButton.h"
 
-CardButton::CardButton(Model* m):model_(m){
-    card.set(deck.null());
-    buttonCard.set_image(card);
-    
-    buttonCard.signal_clicked().connect( sigc::mem_fun( *this, &CardButton::onButtonClicked ) );
+CardButton::CardButton(const int& r, const int& s): rank_(r), suit_(s){}
+
+int CardButton::getRank(){
+    return rank_;
 }
 
-
-void CardButton::onButtonClicked() {
-    controller_->nextButtonClicked();
-}
-
-void CardButton::update(){
-
-
+int CardButton::getSuit(){
+    return suit_;
 }

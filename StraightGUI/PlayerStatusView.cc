@@ -18,7 +18,7 @@ PlayerStatusView::PlayerStatusView(Model *model, Gtk::Frame *frame){
 	// Create one label for each player and add it to frame
 	for(int i = 0; i < 4; i++) {
 
-		playerStatus_[i] = new Gtk::Frame(model_->getPlayerType()i]);
+		playerStatus_[i] = new Gtk::Frame(model_->getPlayerType()[i]);
 		Gtk::Label *playerLabelStatus = new Gtk::Label(model_->getPlayerStatus()[i], 0, 0, false);
 		
 		playerStatus_[i]->add(*playerLabelStatus);
