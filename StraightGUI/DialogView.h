@@ -31,7 +31,8 @@ public:
 	DialogView( Gtk::Window & parentWindow, Model*);
 	virtual ~DialogView();
     virtual void update();                      // Observer Pattern: concrete update() method
-	
+	bool* getPlayerType();
+
 private:
 	vector<Gtk::CheckButton *>   buttons;       // Buttons for the messages.
     bool playerList_[4];                          //0 represents computer player, and 1 represent human player

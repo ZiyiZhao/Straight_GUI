@@ -28,7 +28,11 @@ const int numCards = numFaces * numSuits;
 class Model : public Subject {
 public:
     Model();
+
+    void setSeed(int);
     
+    void newGame(bool*);
+
     int* getTableHeart();
     int* getTableDiamond();
     int* getTableSpade();
@@ -42,6 +46,9 @@ public:
 private:
 	// Facade Design
     FacadeAdapter *game_;
+
+    // Game seed
+    int seed_;
 
     // Table Game Data
     int tableHeart_[26];

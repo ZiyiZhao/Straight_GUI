@@ -69,6 +69,10 @@ DialogView::~DialogView() {
 	buttons.clear();
 } // DialogView::~DialogView
 
+bool* DialogView::getPlayerType() {
+	return playerList_;
+}
+
 void DialogView::update(){
     
 }

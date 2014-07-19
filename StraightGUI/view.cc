@@ -93,18 +93,20 @@ View::View(Controller *c, Model *m){
     playerHandView_ = new PlayerHandView(model_, &playerHandWrapper_);
     gameWindowWrapper_.add(playerHandWrapper_);
 
-    // Player selection
-    //DialogView dialog(*this, model_);
-
     show_all();
     model_->subscribe(this);
+
+    // Player selection
+    DialogView dialog(*this, model_);
+    model_->setSeed(0);
+    model_->newGame(dialog.getPlayerType());
 
 } // View::View
 
 View::~View() {}
 
 void View::update(){
-
+    show_all();
 }
 
 void View::on_menuAction_quit() {

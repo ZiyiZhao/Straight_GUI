@@ -7,14 +7,27 @@
 #define MVC_FACADEADAPTER_H
 
 #include "Game.h"
+#include "HumanPlayer.h"
+#include "ComputerPlayer.h"
+#include "Deck.h"
 
 class FacadeAdapter {
 public:
    	FacadeAdapter();	// Constructor(model, playerNum, score, discards, isAI)
    	~FacadeAdapter();
+
+   	void startGame( bool*, int);
    	
 private:
-	Game *game_;
+	
+	// The playing table
+	GameTable *gameTable_;
+
+	// The 4 players
+	Player *players_[4];
+
+	// Current player number (0 - 3)
+	int currentPlayer_;
 };
 #endif
 

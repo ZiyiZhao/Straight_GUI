@@ -42,6 +42,14 @@ Model::Model(){
 
 }
 
+void Model::setSeed(int seed) {
+	seed_ = seed;
+}
+
+void Model::newGame(bool* playerType) {
+	game_->startGame(playerType, seed_);
+}
+
 int* Model::getTableHeart(){
 	return tableHeart_;
 }
