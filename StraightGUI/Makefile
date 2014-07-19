@@ -19,3 +19,4 @@ main.o: view.h controller.h model.h main.cc
 PlayerStatusView.o: PlayerStatusView.h PlayerStatusView.cc
 TableView.o: TableView.h controller.h model.h DeckGUI.h TableView.cc
 PlayerHandView.o: PlayerHandView.h model.h DeckGUI.h PlayerHandView.cc
+DialogView.o: DialogView.cc
