@@ -1,7 +1,7 @@
 CXX= g++
 CXXFLAGS = -Wall -O -g `pkg-config gtkmm-2.4 --cflags`
 LDFLAGS=`pkg-config gtkmm-2.4 --libs`
-OBJS = subject.o model.o controller.o DeckGUI.o CardButton.o TableView.o PlayerStatusView.o view.o main.o 
+OBJS = subject.o model.o controller.o DialogView.o DeckGUI.o CardButton.o TableView.o PlayerStatusView.o view.o main.o 
 EXEC = mvc
 
 $(EXEC): $(OBJS)
@@ -19,3 +19,4 @@ main.o: view.h controller.h model.h main.cc
 PlayerStatusView.o: PlayerStatusView.h PlayerStatusView.cc
 TableView.o: TableView.h controller.h model.h DeckGUI.h TableView.cc
 CardButton.o: CardButton.h model.h DeckGUI.h CardButton.cc
+DialogView.o: DialogView.cc

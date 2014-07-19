@@ -18,6 +18,7 @@
 #include <iostream>
 #include <sstream>
 #include "TableView.h"
+#include "DialogView.h"
 
 // Creates buttons with labels. Sets butBox elements to have the same size, 
 // with 10 pixels between widgets
@@ -99,6 +100,8 @@ View::View(Controller *c, Model *m){
     }	
 
     show_all();
+    DialogView dialog(*this, model_);
+    
     model_->subscribe(this);
 
 } // View::View
