@@ -116,11 +116,15 @@ View::~View() {
 void View::update(){
     show_all();
 
+    // update only if round is over
     if (model_->getRoundOver()){
         std::ostringstream oss;
+        
+        // display a dialog for information about round status
         Gtk::Dialog dialog( "Game Status", *this );
         Gtk::VBox* contentArea = dialog.get_vbox();
         oss << "Player Status: \n";
+        //determine player type
         for(int i = 0; i < 4; i++) {
             if(model_->getPlayerType()[i][0] == 'P') {
                 oss << "Player ";
@@ -129,6 +133,7 @@ void View::update(){
             }
             oss << (i + 1);
             oss << " discarded:\n";
+            // get discarded cards
             std::vector<char> discards = model_->getDiscardCards(i);
 
             for(int j = 0; j < discards.size(); j++){
@@ -140,6 +145,7 @@ void View::update(){
                 if(j%2 == 1)
                     oss << " ";
             }
+            // display pointes earne and total score
             oss << "\nAnd earned ";
             oss << model_->getCurrentRoundScore(i);
             oss << " points, for a total of ";
@@ -149,9 +155,12 @@ void View::update(){
         Gtk::Label message(oss.str());
         
         contentArea->pack_start(message, true, false);
-        
+
+        dialog.show_all_children();
+
+        // in case that round ends and game is over
         if (model_->getGameOver()){
-            std::cout << "Game Over!!!";
+
             
             //in case of multiple player wins
             std::ostringstream osss;
@@ -178,12 +187,15 @@ void View::update(){
             osss << " Wins! Congratulations!";
             
             Gtk::Label winner (osss.str());
+
             contentArea->pack_start(winner, true, false);
             winner.show();
             
+            // game ends
             Gtk::Button * okButton = dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 
         } else {
+            // if game does not end
             Gtk::Button * nextRoundButton = dialog.add_button( "Continue Game", Gtk::RESPONSE_ACCEPT);
         }
         // Wait for a response from the dialog box.
@@ -194,18 +206,19 @@ void View::update(){
         switch (result) {
             case Gtk::RESPONSE_OK:
                 // what happens when the game ends?
+                dialog.hide();
                 break;
             case Gtk::RESPONSE_ACCEPT:
                 dialog.hide();
                 model_->newRound();
+                model_->newGame();
+
                 break;
             default:
                 std::cout << "unexpected button clicked" << std::endl;
                 break;
         } // switch
         
-
-    
     }
     
     

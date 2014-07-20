@@ -59,7 +59,7 @@ public:
     void newRound();
 
 
-    void reset();
+    void reset();                               // resets the model
 
     std::vector<char> getDiscardCards(const int) const;
 
@@ -78,25 +78,26 @@ private:
     std::string playerType_[4];                 // stores player type
     std::string playerStatus_[4];               
 
-    // Player's Current Hand
+                                                // Player's Current Hand
     int playerHand_[26];
 
-    int currentPlayerType_;
-    int currentPlayerNumber_;
+    int currentPlayerType_;                     // current player type
+    int currentPlayerNumber_;                   // current player ID
 
-    std::string infoForPlayer_;
-    bool gameOver_;
-    bool roundOver_;
+    std::string infoForPlayer_;                 // message for player
+    bool gameOver_;                             // contains check for game over
+    bool roundOver_;                            // contains check for round over
 
-    int lastRoundScore_[4];
-    int currentRoundScore_[4];
-
+    int lastRoundScore_[4];                     // round score array
+    int currentRoundScore_[4];                  // round score array
+    
+                                                //array for each player's discarded cards
     std::vector<char> player1Discards_;
     std::vector<char> player2Discards_;
     std::vector<char> player3Discards_;
     std::vector<char> player4Discards_;
 
-    std::vector<char> availableCards_;
+    std::vector<char> availableCards_;          // set of available cards
     bool playerGene_[4];
 
 };

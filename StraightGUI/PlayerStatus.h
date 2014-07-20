@@ -23,13 +23,13 @@ class View;
 class PlayerStatus : public Gtk::Frame{
 public:
    	PlayerStatus(Gtk::Frame*, int, int, bool);	// Constructor(model, playerNum, score, discards, isAI)
-   	void update();
-   	Gtk::Frame* getLabel();
+   	void update();                              // inherited update()
+   	Gtk::Frame* getLabel();                     //accessor
 private:
-	Gtk::Frame *frame_;
-  	int score_;
-  	int discards_;
-   	bool isAI_;
+	Gtk::Frame *frame_;                         // frame for contents
+  	int score_;                                 // player score
+  	int discards_;                              // player discards
+   	bool isAI_;                                 // determines if it is a computer
 
 }; // Controller
 

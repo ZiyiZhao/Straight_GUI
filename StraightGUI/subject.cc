@@ -15,6 +15,7 @@
 #include "subject.h"
 #include "observer.h"
 
+// standard subject class implementation
 void Subject::subscribe (Observer *newView) {
     std::cout << "Got Subscriber" << std::endl;
     observers_.insert(newView);
