@@ -8,7 +8,7 @@
 
 #include "HumanPlayer.h"
 //constructor
-HumanPlayer::HumanPlayer(std::string playerName):Player(playerName){}
+HumanPlayer::HumanPlayer(std::string playerName):Player("Player " + playerName){}
 
 //check for legal command
 Command* HumanPlayer::turn(std::vector<Card*> cardsOnTable) const{

@@ -37,11 +37,19 @@ public:
     int* getTableSpade();
     int* getTableClub();
 
+    void updatePlayerStaus();
+    void updatePlayerHand();
+
+    void rage();
+
     std::string* getPlayerType();
     std::string* getPlayerStatus();
 
     int* getPlayerHand();
     std::string getInfoForPlayer();
+
+    int getCurrentPlayerType();
+    int getCurrentPlayerNumber();
 
 private:
 	// Facade Design
@@ -62,6 +70,9 @@ private:
 
     // Player's Current Hand
     int playerHand_[26];
+
+    int currentPlayerType_;
+    int currentPlayerNumber_;
 
     std::string infoForPlayer_;
 };

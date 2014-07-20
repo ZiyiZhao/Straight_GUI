@@ -17,6 +17,7 @@
 #include <gtkmm/image.h>
 #include <gtkmm/label.h>
 #include <iostream>
+#include <sstream>
 #include "PlayerHandView.h"
 
 PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): model_(model), frame_(frame), controller_(c){
@@ -35,9 +36,11 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 	}
 	playerOption_.add(playerHand_);
 
-	Gtk::Label *playerInfo = new Gtk::Label(model_->getInfoForPlayer());
-	playerInfo->set_size_request(-1, 30);
-	playerOption_.add(*playerInfo);
+	Gtk::Label *playerInfoLabel = new Gtk::Label(model_->getInfoForPlayer());
+	playerInfo_.set_label("Player Message Box: ");
+	playerInfo_.add(*playerInfoLabel);
+	playerInfo_.set_size_request(-1, 30);
+	playerOption_.add(playerInfo_);
 
 	rageQuitButton_.set_label("RAGE QUIT!!");
     rageQuitButton_.signal_clicked().connect(sigc::mem_fun( *this, &PlayerHandView::rageButtonClicked) );
@@ -55,6 +58,17 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 PlayerHandView::~PlayerHandView(){}
 
 void PlayerHandView::update(){
+
+	std::ostringstream oss;
+	if(model_->getCurrentPlayerType() == 1) {
+		oss << "Player ";
+	} else {
+		oss << "Computer ";
+	}
+	oss << model_->getCurrentPlayerNumber();
+
+	frame_->set_label(oss.str());
+
 	int* cardsInHand = model_->getPlayerHand();
 	for(int i = 0; i < 13; i++) {
 		playerCardImage_[i]->set(deck_.image((Rank)cardsInHand[i*2],(Suit)cardsInHand[i*2+1]));
@@ -66,6 +80,9 @@ void PlayerHandView::update(){
 			playerCards_[i]->set_sensitive(false);
 		}
 	}
+
+	playerInfo_.remove();
+	playerInfo_.add(*(new Gtk::Label(model_->getInfoForPlayer())));
 
 	std::cout << "Done updating hand cards" << std::endl;
 }

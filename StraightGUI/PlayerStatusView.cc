@@ -46,19 +46,12 @@ void PlayerStatusView::update(){
 
 	std::cout << "PlayerStatusView::update()" << std::endl;
 	// Remove any widget
-	frame_->remove();
-
-	// Add new label
-	std::ostringstream oss;
-	oss << "Player Point:     ";
-	oss << 100;	// Need to change
-	oss << "\n";
-	oss << "Player Discards:  ";
-	oss << 100;	// Need to change
-	oss << "\n";
-
-	Gtk::Label playerLabelStatus(oss.str(), 0, 0, false);
-	frame_->add(playerLabelStatus);
+	for(int i = 0; i < 4; i++) {
+		playerStatus_[i]->remove();
+		playerStatus_[i]->set_label(model_->getPlayerType()[i]);
+		Gtk::Label *playerLabelStatus = new Gtk::Label(model_->getPlayerStatus()[i], 0, 0, false);
+		playerStatus_[i]->add(*playerLabelStatus);
+	}
 
 	std::cout << "PlayerStatusView::update() done" << std::endl;
 }

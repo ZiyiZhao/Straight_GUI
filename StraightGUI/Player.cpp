@@ -29,7 +29,7 @@ Player::PlayerData::PlayerData(std::string playerName):playerName_(playerName){
 }
     
 // Copy constructor
-Player::PlayerData::PlayerData(const PlayerData& playerData):playerName_(playerData.playerName_){
+Player::PlayerData::PlayerData(const PlayerData& playerData):playerName_("Computer " + playerData.playerName_[playerData.playerName_.length()-1]){
     playerScore_ = playerData.playerScore_;
     for(unsigned int index = 0; index < playerData.cardsInHand_.size(); index++) {
         cardsInHand_.push_back(playerData.cardsInHand_[index]);
@@ -234,4 +234,12 @@ Card* Player::playCard(int rank, int suit) {
 
 void Player::discardCard(int rank, int suit) {
     discardCard((Suit)suit, (Rank)rank);
+}
+
+std::string Player::getPlayerName(){
+    return playerData->playerName_;
+}
+
+int Player::getNumOfDiscardCards(){
+    return playerData->discardedCards_.size();
 }

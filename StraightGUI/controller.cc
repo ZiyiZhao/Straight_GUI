@@ -16,12 +16,12 @@ Controller::Controller(Model *m) : model_(m) {}
 
 void Controller::cardButtonClicked(const int& rank, const int& suit){
     //passed in the rank and the suit of the card
-	std::cout << "Playing Card " << rank << " "<<suit <<std::endl;
 	model_->playCard(rank, suit);
 
 }
 
 void Controller::rageButtonClicked(){
-    //this is rage
+    // PLayer rages
+    model_->rage();
 	std::cout << "Rage" << std::endl;
 }

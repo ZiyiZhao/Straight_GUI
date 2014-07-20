@@ -41,6 +41,10 @@ void FacadeAdapter::startGame(bool *playerType, int seed){
 		}
 	}
 
+	for(int i = 0; i < 4; i++){
+		std::cout << players_[i]->getPlayerName() << std::endl;
+	}
+
 	
 	// Assign the cards to players 
 	for(int i = 0; i < 52; i++) {
@@ -107,4 +111,55 @@ int* FacadeAdapter::getTableSpade() {
 
 int* FacadeAdapter::getTableClub() {
     return gameTable_->getTableClub();
+}
+
+int* FacadeAdapter::getPlayerName() {
+
+	std::cout << "Get name" << std::endl;
+	int playerName[4];
+	for(int i = 0; i < 4; i++) {
+		if(players_[i]->getPlayerName()[0] == 'P'){
+			playerName[i] = 1; // human = true
+		} else {
+			playerName[i] = 0;
+		}
+	}
+	std::cout << "done name" << std::endl;
+	return playerName;
+}
+
+int* FacadeAdapter::getPlayerScore(){
+	int playerScore[4];
+	for(int i = 0; i < 4; i++) {
+		playerScore[i] = players_[i]->calculateScore();
+	}
+	return playerScore;
+}
+
+int* FacadeAdapter::getDiscardCards(){
+	std::cout << "Get cards" << std::endl;
+	int discardCards[4];
+	for(int i = 0; i < 4; i++) {
+		discardCards[i] = players_[i]->getNumOfDiscardCards();
+	}
+	std::cout << "done cards" << std::endl;
+	return discardCards;
+}
+
+int FacadeAdapter::getCurrentPlayerNumber(){
+	return currentPlayer_;
+}
+
+int FacadeAdapter::getCurrentPlayerType(){
+	if(players_[currentPlayer_]->getPlayerName()[0] == 'P') {
+		return 1;
+	}
+	return 0;
+}
+
+void FacadeAdapter::rage(){
+	Player *ragedPlayer = new ComputerPlayer(*players_[currentPlayer_]);
+	delete players_[currentPlayer_];
+	players_[currentPlayer_] = ragedPlayer;
+	std::cout << players_[currentPlayer_]->getPlayerName() <<"Raged"<<  std::endl;
 }

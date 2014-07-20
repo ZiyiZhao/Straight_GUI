@@ -41,6 +41,7 @@ private:
 	DeckGUI deck_;                          // Card Images
 
 	Gtk::VBox playerOption_;
+	Gtk::Frame playerInfo_;
 	Gtk::HBox playerHand_;
 
 	Gtk::Button rageQuitButton_;

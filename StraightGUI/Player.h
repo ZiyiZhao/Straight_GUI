@@ -33,6 +33,8 @@ public:
     void discardCard(int,int);
     std::vector<Card*> getPlayerHand();
     int playCardType(int, int, const std::vector<Card*>);       // 1 if valid play, 0 if valid discard, -1 if invalid play
+    std::string getPlayerName();
+    int getNumOfDiscardCards();
 private:
     Player& operator=(Player&);                                 // Prohibited assignment operator
     void displayGameTable(const std::vector<Card*>, const std::vector<Card*>);

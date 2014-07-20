@@ -31,10 +31,20 @@ public:
     int* getTableDiamond();
     int* getTableSpade();
     int* getTableClub();
+
+    int* getPlayerScore();
+    int* getDiscardCards();
+
+    int* getPlayerName();
    	
    	int* getPlayerHand();
 
    	bool playCard(int, int);
+
+    int getCurrentPlayerNumber();
+    int getCurrentPlayerType();
+
+    void rage();
 private:
 	
 	// The playing table

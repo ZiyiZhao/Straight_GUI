@@ -28,11 +28,6 @@ void Subject::unsubscribe (Observer *formerView) {
 
 void Subject::notify() {
   Observers::iterator i;
-    int ii = 0;
-    std::cout << observers_.size() << std::endl;
-    for (i = observers_.begin(); i != observers_.end(); ++i){
-        std::cout << "Notify start ---------------------------------------------------\n" << ii++ <<"\n"<<std::endl;
+    for (i = observers_.begin(); i != observers_.end(); ++i)
         (*i)->update();
-        std::cout << "Notify done" <<std::endl;
-    }
 }
