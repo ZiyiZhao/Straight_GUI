@@ -1,14 +1,10 @@
-/*
- * MVC example of GTKmm program
- *
- * Controller class.  Is responsible for translating UI events (from the View)
- * into method calls to the Model.
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
-
+//
+//  controller.cc
+//  Straights
+//
+//  Created by Jack,Errin on 2014-06-14.
+//  Copyright (c) 2014 Jack,Errin. All rights reserved.
+//
 
 #include "controller.h"
 #include "model.h"

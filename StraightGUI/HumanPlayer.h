@@ -1,5 +1,5 @@
 //
-//  Deck.h
+//  HumanPlayer.h
 //  Straights
 //
 //  Created by Jack,Errin on 2014-06-14.

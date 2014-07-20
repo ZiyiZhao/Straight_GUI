@@ -1,13 +1,10 @@
-/*
- * MVC example of GTKmm program
- *
- * Model class.  Is responsible keeping track of the deck of cards.  
- * It knows nothing about views or controllers.
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
+//
+//  model.cc
+//  Straights
+//
+//  Created by Jack,Errin on 2014-06-14.
+//  Copyright (c) 2014 Jack,Errin. All rights reserved.
+//
 
 
 #include "model.h"

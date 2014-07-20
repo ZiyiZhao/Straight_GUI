@@ -1,11 +1,10 @@
-/*
-* Observer class.  Abstract class for Observer Pattern
-*
-*
-*  Created by Jo Atlee on 06/07/09.
-*  Copyright 2009 UW. All rights reserved.
-*
-*/
+//
+//  CardButton.h
+//  Straights
+//
+//  Created by Jack,Errin on 2014-06-14.
+//  Copyright (c) 2014 Jack,Errin. All rights reserved.
+//
 
 
 #ifndef CARDBUTTON_H

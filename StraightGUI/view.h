@@ -1,29 +1,20 @@
-/*
- * MVC example of GTKmm program
- *
- * View class.  Is responsible for buttons (that user clicks) and for displaying
- * the top card of the deck.
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
-
-
+//
+//  view.h
+//  Straights
+//
+//  Created by Jack,Errin on 2014-06-14.
+//  Copyright (c) 2014 Jack,Errin. All rights reserved.
+//
 #ifndef MVC_VIEW_H
 #define MVC_VIEW_H
 
-#include <gtkmm.h>
 #include <gtkmm/window.h>
-#include <gtkmm/image.h>
 #include <gtkmm/box.h>
-#include <gtkmm/button.h>
 #include <gtkmm/frame.h>
 #include "observer.h"
 #include "PlayerStatusView.h"
 #include "PlayerHandView.h"
 #include "TableView.h"
-//#include "CardButton.h"
 
 class Controller;
 class Model;
@@ -31,44 +22,41 @@ class Model;
 
 class View : public Gtk::Window, public Observer {
 public:
-        View( Controller*, Model* );
-	virtual ~View();
-	virtual void update();	// Observer Pattern: concrete update() method
+    View( Controller*, Model* );                        // cosntructor
+	virtual ~View();                                    // destructor
+	virtual void update();                              // Observer Pattern: concrete update() method
 
 private:
-	// Observer Pattern: to access Model accessors without having to downcast subject
-	Model *model_;
+	Model *model_;                                      // Observer Pattern: to access Model accessors without having to downcast subject
 	
-	// Strategy Pattern member (plus signal handlers)
-	Controller *controller_;
+	Controller *controller_;                            // Strategy Pattern member (plus signal handlers)
 
-	Gtk::VBox gameWindowWrapper_;
+	Gtk::VBox gameWindowWrapper_;                       // the most outer vbox
 
-	// Menu variables
-	Glib::RefPtr<Gtk::UIManager>   m_refUIManager;
-	Glib::RefPtr<Gtk::ActionGroup> m_refActionGroup;
-
-	// Game table and cards
-	Gtk::Frame gameTableWrapper_;
-	TableView *gameTableView_;
-
-	// Player Status
-	Gtk::Frame playerStatusWrapper_;
-	PlayerStatusView *playerStatusView_;
+	Glib::RefPtr<Gtk::UIManager>   m_refUIManager;      // reference pointer of set of UI widgets
+	Glib::RefPtr<Gtk::ActionGroup> m_refActionGroup;    // reference pointer of a set of action group widgets
     
-    //player's card on hand
-    Gtk::Frame playerHandWrapper_;
-    PlayerHandView *playerHandView_;
-    
-    //store seed
-    int seed_;
+                                                        // Game table and cards
+	Gtk::Frame gameTableWrapper_;                       // wrapper that contains table of cards as images
+	TableView *gameTableView_;                          // view that contains a set of cards that is currently on table
 
-	// Action for menu items
-	virtual void on_menuAction_new();
-	virtual void on_menuAction_quit();
-	virtual void on_menuAction_save();
-    virtual void on_menuAction_restore();
+                                                        // Player Status
+	Gtk::Frame playerStatusWrapper_;                    // frame for player status
+	PlayerStatusView *playerStatusView_;                // individual views that contains player information
+    
+                                                        // player's card on hand
+    Gtk::Frame playerHandWrapper_;                      // frame for cards on current player's hand
+    PlayerHandView *playerHandView_;                    // buttons to display the cards that currently on player's hand
+    
+    int seed_;                                          // stores the seed from user input
+
+                                                        // on click action event functions for menu items
+	virtual void on_menuAction_new();                   // when "New game" in menu is clicked
+	virtual void on_menuAction_quit();                  // when "Quit" in menu is clicked
+	virtual void on_menuAction_save();                  // when "save" in menu is clicked
+    virtual void on_menuAction_restore();               // when "restore" in menu is clicked
     virtual void on_menuAction_seed(Gtk::Window & parentWindow);
+                                                        // when "Seed" in menu is clicked
 
 
 }; // View

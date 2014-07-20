@@ -5,7 +5,7 @@
  *		Responsible for displaying the 
  *		cards currently played on table
  *  
- *  Created by Jack Wang on 17/July/2014.
+ *  Created by Jack Wang, Errin on 17/July/2014.
  *
  */
 

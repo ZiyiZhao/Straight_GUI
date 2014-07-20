@@ -6,6 +6,7 @@
  *  Copyright 2009 UW. All rights reserved.
  *
  */
+
 #include "DeckGUI.h"
 #include <algorithm>
 #include <iterator>
@@ -17,26 +18,7 @@ using std::transform;
 
 // Sets up an array of the Portable Network Graphics (PNG) file names that contain the necessary card images.
 // The deck will load the contents into pixel buffers for later use.
-/*
-const char * image_names[] = {   
-	// Set up NINE of {DIAMOND,CLUB,HEART,SPADE}
-	"cards_png/0_0.png", "cards_png/0_1.png", "cards_png/0_2.png", "cards_png/0_3.png",
-	// Set up TEN of {DIAMOND,CLUB,HEART,SPADE}
-	"cards_png/1_0.png", "cards_png/1_1.png", "cards_png/1_2.png", "cards_png/1_3.png",
-	// Set up JACK of {DIAMOND,CLUB,HEART,SPADE}
-	"cards_png/2_0.png", "cards_png/2_1.png", "cards_png/2_2.png", "cards_png/2_3.png",
-	// Set up QUEEN of {DIAMOND,CLUB,HEART,SPADE}
-	"cards_png/3_0.png", "cards_png/3_1.png", "cards_png/3_2.png", "cards_png/3_3.png",
-	// Set up KING of {DIAMOND,CLUB,HEART,SPADE}
-	"cards_png/4_0.png", "cards_png/4_1.png", "cards_png/4_2.png", "cards_png/4_3.png",
-	// Set up ACE of {DIAMOND,CLUB,HEART,SPADE}
-	"cards_png/5_0.png", "cards_png/5_1.png", "cards_png/5_2.png", "cards_png/5_3.png",
-	// Set up the back of a card for a place holder/null card
-	"cards_png/back_1.png", 
-	//empty card
-	"cards_png/empty.png"
-}; 
-*/
+
 const char * image_names[] = {   
 	"cards_png/0_0.png","cards_png/0_1.png","cards_png/0_2.png","cards_png/0_3.png","cards_png/0_4.png","cards_png/0_5.png","cards_png/0_6.png","cards_png/0_7.png","cards_png/0_8.png","cards_png/0_9.png","cards_png/0_j.png","cards_png/0_q.png","cards_png/0_k.png",
 	"cards_png/1_0.png","cards_png/1_1.png","cards_png/1_2.png","cards_png/1_3.png","cards_png/1_4.png","cards_png/1_5.png","cards_png/1_6.png","cards_png/1_7.png","cards_png/1_8.png","cards_png/1_9.png","cards_png/1_j.png","cards_png/1_q.png","cards_png/1_k.png",
@@ -69,7 +51,7 @@ Glib::RefPtr<Gdk::Pixbuf> DeckGUI::image( Rank f, Suit s ) {
 		return DeckGUI::empty();
 	}
 	int index = (int)f + ((int)s * 13);
-	//std::cout << "face: " << f << " suit: " << s << " index: "<< index <<" card: "<< image_names[index] <<std::endl;
+
 	return deck[ index ];
 } // DeckGUI::getCardImage 
 

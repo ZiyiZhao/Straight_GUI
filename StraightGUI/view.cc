@@ -1,34 +1,29 @@
-/*
- * MVC example of GTKmm program
- *
- * View class.  Is responsible for buttons (that user clicks) and for displaying
- * the top card of the deck.
- *
- *  Created by Jo Atlee on 06/07/09.
- *  Copyright 2009 UW. All rights reserved.
- *
- */
-
-
+//
+//  view.cc
+//  Straights
+//
+//  Created by Jack,Errin on 2014-06-14.
+//  Copyright (c) 2014 Jack,Errin. All rights reserved.
+//
 #include "observer.h"
 #include "view.h"
 #include "controller.h"
 #include "model.h"
 #include "subject.h"
+#include "TableView.h"
+#include "DialogView.h"
+
 #include <iostream>
 #include <sstream>
 #include <gtkmm/dialog.h>
 #include <gtkmm/stock.h>
 #include <gtkmm/label.h>
 #include <gtkmm/entry.h>
-#include "TableView.h"
-#include "DialogView.h"
 
-// Creates buttons with labels. Sets butBox elements to have the same size, 
-// with 10 pixels between widgets
+// constructor
 View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
 
-	// Sets some properties of the window.
+	// Sets properties of the window.
     set_title( "Stright GUI Game" );
 	set_border_width( 10 );
 	set_default_size(1000,500);
@@ -54,12 +49,12 @@ View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
     m_refActionGroup->add( Gtk::Action::create("Quit", Gtk::Stock::QUIT),
                           sigc::mem_fun(*this, &View::on_menuAction_quit) );
     
-    //Define how the actions are presented in the menus and toolbars:
+    // Define how the actions are presented in the menus and toolbars:
     Glib::RefPtr<Gtk::UIManager> m_refUIManager = Gtk::UIManager::create();
     m_refUIManager->insert_action_group(m_refActionGroup);
     add_accel_group(m_refUIManager->get_accel_group());
     
-    //Layout the actions in a menubar and toolbar:
+    // Layout the actions in a menubar and toolbar:
     Glib::ustring ui_info =
     "<ui>"
     "  <menubar name='MenuBar'>"
@@ -86,7 +81,7 @@ View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
     // Add the menu bar to the frame
     gameWindowWrapper_.pack_start(*pMenuBar, Gtk::PACK_SHRINK);
 
-    /*	Cards and Table 	*/
+    /*      Cards and Table 	*/
 	gameTableView_ = new TableView(model_, &gameTableWrapper_);
 	gameWindowWrapper_.add(gameTableWrapper_);
 
@@ -101,12 +96,22 @@ View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
     show_all();
     model_->subscribe(this);
 
+    // set the seed (initialized to be 0)
     model_->setSeed(seed_);
 
 } // View::View
 
-View::~View() {}
+// destructor
+View::~View() {
+    delete model_;
+    delete controller_;
+    delete gameTableView_;
+    delete playerStatusView_;
+    delete playerHandView_;
 
+}
+
+// update the current view with new content
 void View::update(){
     //Update
     std::cout <<"Update"<<std::endl;
@@ -114,54 +119,70 @@ void View::update(){
 }
 
 void View::on_menuAction_quit() {
-    hide(); //Closes the main window to stop the Gtk::Main::run().
+    // Closes the main window to stop the Gtk::Main::run().
+    hide();
 }
 
+// create a new game
 void View::on_menuAction_new() {
     std::cout << "Creating a new game..." << std::endl;
-    // Player selection
+    // diaplay a dialog for Player selection
     DialogView dialog(*this, model_);
+    // start a new game with player type defined
     model_->newGame(dialog.getPlayerType());
 }
 
+// saving the current game
 void View::on_menuAction_save() {
     std::cout << "Saving the game..." << std::endl;
 }
 
+// restore a previously saved game
 void View::on_menuAction_restore() {
     std::cout << "Restoring the game. Please wait..." << std::endl;
 }
+
+// setting a seed for random number generator
 void View::on_menuAction_seed(Gtk::Window & parentWindow){
+    
+    // create a dialog for entering the seed
     Gtk::Dialog dialog( "Seed", parentWindow );
     
-    Gtk::Entry   seedField;                  // Text entry for the seed
+    // text entry for seed
+    Gtk::Entry   seedField;
     Gtk::Label   dialogLabel( "Please enter a seed: " );
     
-    // Add the text entry widget to the dialog box.
-    // Add the text entry widget to the vertical box section of the dialog box.
+    // Add the text entry widget, and the label to the vertical box section of the dialog box.
     Gtk::VBox* contentArea = dialog.get_vbox();
     contentArea->pack_start( dialogLabel, true, false );
     contentArea->pack_start( seedField, true, false );
     
+    // initialize the text entry widget to null string
     seedField.set_text( "" );
+    
+    // show all the widgets within the dialog
     dialogLabel.show();
     seedField.show();
     
-    // Add two standard buttons, "Ok" and "Cancel" with the appropriate responses when clicked.
+    // Add two standard buttons, "Ok" and "Cancel" with the appropriate standard responses when clicked.
     Gtk::Button * okButton = dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
     Gtk::Button * cancelButton = dialog.add_button( Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
     
     // Wait for a response from the dialog box.
 	int result = dialog.run();
     
+    // stores the seed as a string
     std::string stringSeed;
     
+    // determine corresponding action for different player events
     switch (result) {
         case Gtk::RESPONSE_OK:
+            // store the text entry into seed (string)
             stringSeed = (std::string)seedField.get_text();
             std::cout << "Entered '" << stringSeed << "'" << std::endl;
             break;
         case Gtk::RESPONSE_CANCEL:
+            // in case of user event cancel, display message
             std::cout << "dialog cancelled" << std::endl;
             break;
         default:
@@ -169,7 +190,10 @@ void View::on_menuAction_seed(Gtk::Window & parentWindow){
             break;
     } // switch
     
+    // convert the current seed(string) into seed(int)
     std::stringstream convert(stringSeed);
+    
+    // handle the case when can not be converted
     if(!(convert >> seed_))  seed_ = 0;
     std::cout << "seed_ '" << seed_ << "'" << std::endl;
 }

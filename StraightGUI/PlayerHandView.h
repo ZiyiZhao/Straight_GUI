@@ -1,3 +1,12 @@
+//
+//  PlayerHandView.h
+//  Straights
+//
+//  Created by Jack,Errin on 2014-06-14.
+//  Copyright (c) 2014 Jack,Errin. All rights reserved.
+//
+
+
 /*
  * 	Player class - holds the information to display for the viewer class
  */
