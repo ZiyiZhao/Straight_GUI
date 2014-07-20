@@ -129,7 +129,7 @@ void View::on_menuAction_quit() {
 void View::on_menuAction_new() {
     std::cout << "Creating a new game..." << std::endl;
     // diaplay a dialog for Player selection
-    DialogView dialog(*this, model_);
+    DialogView dialog(*this);
     // start a new game with player type defined
     model_->newGame(dialog.getPlayerType());
 }
