@@ -20,12 +20,11 @@ using std::vector;
 class Observer;
 class Model;
 
-class DialogView : public Gtk::Dialog, public Observer {
+class DialogView : public Gtk::Dialog {
 public:
 	// Specifies the parent window of the dialog box
 	DialogView( Gtk::Window & parentWindow, Model*);
 	virtual ~DialogView();
-    virtual void update();                      // Observer Pattern: concrete update() method
 	bool* getPlayerType();
 
 private:

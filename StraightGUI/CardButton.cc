@@ -13,7 +13,6 @@
 CardButton::CardButton(const int& r, const int& s): rank_(r), suit_(s){}
 
 int CardButton::getRank(){
-    std::cout << "get Rank: " <<rank_ << std::endl;
     return rank_;
 }
 
@@ -22,7 +21,6 @@ int CardButton::getSuit(){
 }
 
 void CardButton::setSuit(int suit) {
-    std::cout << "set Rank: " <<rank_ << std::endl;
     suit_ = suit;
 }
 

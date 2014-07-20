@@ -47,6 +47,7 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 	frame_->add(playerOption_);
 	frame_->set_label("Player 1");
     
+    std::cout << "Subscribing playerHandView" << std::endl;
     model_->subscribe(this);
 
 }
@@ -57,8 +58,6 @@ void PlayerHandView::update(){
 	int* cardsInHand = model_->getPlayerHand();
 	for(int i = 0; i < 13; i++) {
 		playerCardImage_[i]->set(deck_.image((Rank)cardsInHand[i*2],(Suit)cardsInHand[i*2+1]));
-		std::cout << "Setting" << std::endl;
-		std::cout << cardsInHand[i*2] << std::endl;
 		if(cardsInHand[i*2] != -1){
 			playerCards_[i]->setRank(cardsInHand[i*2]);
 			playerCards_[i]->setSuit(cardsInHand[i*2+1]);

@@ -35,6 +35,7 @@ PlayerStatusView::PlayerStatusView(Model *model, Gtk::Frame *frame){
 
 	frame_->add(playerStatusHBox_);
 
+	std::cout << "Subscribing PlayerStatusView" << std::endl;
 	model_->subscribe(this);
 	
 }

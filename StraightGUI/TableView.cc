@@ -72,6 +72,7 @@ TableView::TableView(Model *m, Gtk::Frame *f) : heartSuitCardsHBox_(true,5), spa
         
     }
 
+    std::cout << "Subscribing TableView" << std::endl;
     model_->subscribe(this);
 
 }

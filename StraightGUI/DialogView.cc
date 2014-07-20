@@ -56,8 +56,6 @@ DialogView::DialogView( Gtk::Window & parentWindow, Model* m  ) : Dialog( "Playe
             break;
     } // switch
     
-    model_->subscribe(this);
-    
 } // DialogView::DialogView
 
 DialogView::~DialogView() {
@@ -67,8 +65,4 @@ DialogView::~DialogView() {
 
 bool* DialogView::getPlayerType() {
 	return playerList_;
-}
-
-void DialogView::update(){
-    
 }

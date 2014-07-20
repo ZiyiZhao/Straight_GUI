@@ -94,6 +94,8 @@ View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
     gameWindowWrapper_.add(playerHandWrapper_);
 
     show_all();
+
+    std::cout << "Subscribing view" << std::endl;
     model_->subscribe(this);
 
     // set the seed (initialized to be 0)

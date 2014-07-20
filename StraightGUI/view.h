@@ -24,6 +24,7 @@ class View : public Gtk::Window, public Observer {
 public:
     View( Controller*, Model* );                        // cosntructor
 	virtual ~View();                                    // destructor
+	
 	virtual void update();                              // Observer Pattern: concrete update() method
 
 private:
