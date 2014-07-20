@@ -17,12 +17,16 @@
 #include "subject.h"
 #include <iostream>
 #include <sstream>
+#include <gtkmm/dialog.h>
+#include <gtkmm/stock.h>
+#include <gtkmm/label.h>
+#include <gtkmm/entry.h>
 #include "TableView.h"
 #include "DialogView.h"
 
 // Creates buttons with labels. Sets butBox elements to have the same size, 
 // with 10 pixels between widgets
-View::View(Controller *c, Model *m): model_(m), controller_(c){
+View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
 
 	// Sets some properties of the window.
     set_title( "Stright GUI Game" );
@@ -43,8 +47,10 @@ View::View(Controller *c, Model *m): model_(m), controller_(c){
     m_refActionGroup->add( Gtk::ToggleAction::create("Save",
                                                      Gtk::Stock::SAVE, "Save" ),
                           sigc::mem_fun(*this, &View::on_menuAction_save) );
-    m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore a saved game"),
+    m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore saved game"),
                           sigc::mem_fun(*this, &View::on_menuAction_restore) );
+    m_refActionGroup->add( Gtk::Action::create("StoreSeed", Gtk::Stock::DIRECTORY, "Store Seed"),
+                          sigc::bind<Gtk::Window&>(sigc::mem_fun(*this, &View::on_menuAction_seed), *this ));
     m_refActionGroup->add( Gtk::Action::create("Quit", Gtk::Stock::QUIT),
                           sigc::mem_fun(*this, &View::on_menuAction_quit) );
     
@@ -62,6 +68,7 @@ View::View(Controller *c, Model *m): model_(m), controller_(c){
     "      <menuitem action='Save'/>"
     "      <separator/>"
     "      <menuitem action='RestoreSavedGame'/>"
+    "      <menuitem action='StoreSeed'/>"
     "      <separator/>"
     "      <menuitem action='Quit'/>"
     "    </menu>"
@@ -94,10 +101,7 @@ View::View(Controller *c, Model *m): model_(m), controller_(c){
     show_all();
     model_->subscribe(this);
 
-    // Player selection
-    DialogView dialog(*this, model_);
-    model_->setSeed(10);
-    model_->newGame(dialog.getPlayerType());
+    model_->setSeed(seed_);
 
 } // View::View
 
@@ -115,6 +119,9 @@ void View::on_menuAction_quit() {
 
 void View::on_menuAction_new() {
     std::cout << "Creating a new game..." << std::endl;
+    // Player selection
+    DialogView dialog(*this, model_);
+    model_->newGame(dialog.getPlayerType());
 }
 
 void View::on_menuAction_save() {
@@ -123,4 +130,46 @@ void View::on_menuAction_save() {
 
 void View::on_menuAction_restore() {
     std::cout << "Restoring the game. Please wait..." << std::endl;
+}
+void View::on_menuAction_seed(Gtk::Window & parentWindow){
+    Gtk::Dialog dialog( "Seed", parentWindow );
+    
+    Gtk::Entry   seedField;                  // Text entry for the seed
+    Gtk::Label   dialogLabel( "Please enter a seed: " );
+    
+    // Add the text entry widget to the dialog box.
+    // Add the text entry widget to the vertical box section of the dialog box.
+    Gtk::VBox* contentArea = dialog.get_vbox();
+    contentArea->pack_start( dialogLabel, true, false );
+    contentArea->pack_start( seedField, true, false );
+    
+    seedField.set_text( "" );
+    dialogLabel.show();
+    seedField.show();
+    
+    // Add two standard buttons, "Ok" and "Cancel" with the appropriate responses when clicked.
+    Gtk::Button * okButton = dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
+    Gtk::Button * cancelButton = dialog.add_button( Gtk::Stock::CANCEL, Gtk::RESPONSE_CANCEL);
+    
+    // Wait for a response from the dialog box.
+	int result = dialog.run();
+    
+    std::string stringSeed;
+    
+    switch (result) {
+        case Gtk::RESPONSE_OK:
+            stringSeed = (std::string)seedField.get_text();
+            std::cout << "Entered '" << stringSeed << "'" << std::endl;
+            break;
+        case Gtk::RESPONSE_CANCEL:
+            std::cout << "dialog cancelled" << std::endl;
+            break;
+        default:
+            std::cout << "unexpected button clicked" << std::endl;
+            break;
+    } // switch
+    
+    std::stringstream convert(stringSeed);
+    if(!(convert >> seed_))  seed_ = 0;
+    std::cout << "seed_ '" << seed_ << "'" << std::endl;
 }
