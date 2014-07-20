@@ -81,6 +81,8 @@ void Model::playCard(int rank, int suit) {
 
 }
 
+
+
 int* Model::getTableHeart(){
 	return tableHeart_;
 }

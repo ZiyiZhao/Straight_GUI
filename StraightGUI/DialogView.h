@@ -17,20 +17,16 @@
 using std::string;
 using std::vector;
 
-class Observer;
-class Model;
-
 class DialogView : public Gtk::Dialog {
 public:
-	// Specifies the parent window of the dialog box
-	DialogView( Gtk::Window & parentWindow, Model*);
-	virtual ~DialogView();
-	bool* getPlayerType();
+                                                    // Specifies the parent window of the dialog box
+	DialogView( Gtk::Window & parentWindow);
+	virtual ~DialogView();                          //destructor
+	bool* getPlayerType();                          //returns the pointer of the playerList array
 
 private:
-	vector<Gtk::CheckButton *>   buttons;       // Buttons for the messages.
-    bool playerList_[4];                          //0 represents computer player, and 1 represent human player
-    Model* model_;
+	vector<Gtk::CheckButton *>   buttons;           // Buttons for the messages.
+    bool playerList_[4];                            //false represents computer player, and true represent human player
 };
 #endif
 
