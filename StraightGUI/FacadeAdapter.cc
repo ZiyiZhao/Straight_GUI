@@ -171,10 +171,6 @@ void FacadeAdapter::checkNextPlayer(){
 	checkGameOver();
 }
 
-bool FacadeAdapter::ifGameOver() {
-	return gameOver_;
-}
-
 bool FacadeAdapter::ifRoundOver(){
 	return roundOver_;
 }
@@ -183,9 +179,6 @@ void FacadeAdapter::checkGameOver(){
 	int cardLeft = 0;
 	for(int i = 0; i < 4; i++){
 		cardLeft += players_[i]->getPlayerHand().size();
-		if(players_[i]->getScore() >= 80){
-			gameOver_ = true;
-		}
 	}
 	roundOver_ = (cardLeft == 0);
 }

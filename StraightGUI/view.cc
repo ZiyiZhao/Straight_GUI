@@ -131,9 +131,7 @@ void View::update(){
             oss << " discarded:\n";
             std::vector<char> discards = model_->getDiscardCards(i);
 
-            std::cout << "hihi" << std::endl;
             for(int j = 0; j < discards.size(); j++){
-                std::cout << "size: "<< discards.size() << std::endl;
                 if(discards.at(j) == '1'){
                     oss << "10";
                 } else {
@@ -151,19 +149,35 @@ void View::update(){
         Gtk::Label message(oss.str());
         
         contentArea->pack_start(message, true, false);
-        dialog.show_all_children();
-
-
         
         if (model_->getGameOver()){
-            //if (true){
+            std::cout << "Game Over!!!";
             
             //in case of multiple player wins
-            std::string winnerPlayers = "";
+            std::ostringstream osss;
 
+            int lowest = 999;
+            for(int i = 0; i < 4; i++){
+                int score = model_->getCurrentRoundScore(i) + model_->getLastRoundScore(i);
+                if (score < lowest)
+                    lowest = score;
+            }
 
+            for(int i = 0; i < 4; i++){
+                int score = model_->getCurrentRoundScore(i) + model_->getLastRoundScore(i);
+                if (score == lowest){
+                    if(model_->getPlayerType()[i][0] == 'P') {
+                        osss << " Player ";
+                    }else {
+                        osss << " Computer ";
+                    }
+                    osss << (i+1);
+                }
+            }
+
+            osss << " Wins! Congratulations!";
             
-            Gtk::Label winner ("Player " + winnerPlayers + "wins! Congratulations! ");
+            Gtk::Label winner (osss.str());
             contentArea->pack_start(winner, true, false);
             winner.show();
             
@@ -172,8 +186,8 @@ void View::update(){
         } else {
             Gtk::Button * nextRoundButton = dialog.add_button( "Continue Game", Gtk::RESPONSE_ACCEPT);
         }
-        
         // Wait for a response from the dialog box.
+        dialog.show_all_children();
         int result = dialog.run();
         
         // determine corresponding action for different player events
@@ -182,8 +196,8 @@ void View::update(){
                 // what happens when the game ends?
                 break;
             case Gtk::RESPONSE_ACCEPT:
-                model_->reset();
-                model_->newGame();
+                dialog.hide();
+                model_->newRound();
                 break;
             default:
                 std::cout << "unexpected button clicked" << std::endl;
@@ -209,6 +223,8 @@ void View::on_menuAction_new() {
     DialogView dialog(*this);
     // start a new game with player type defined
     model_->newGame(dialog.getPlayerType());
+
+    dialog.hide();
 
 }
 

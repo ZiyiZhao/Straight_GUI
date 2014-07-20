@@ -56,6 +56,8 @@ public:
     bool getGameOver();                         //check if game over
     bool getRoundOver();                        //check if round over
 
+    void newRound();
+
 
     void reset();
 

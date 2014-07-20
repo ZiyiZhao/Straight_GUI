@@ -71,6 +71,15 @@ void Model::reset(){
 		playerHand_[i] = -1;
 	}
 
+
+}
+
+void Model::newRound(){
+	std::cout << "newRound" << std::endl;
+	game_->startGame(playerGene_, seed_);
+	reset();
+	update();
+	notify();
 }
 
 void Model::newGame(bool* playerType) {
@@ -78,21 +87,32 @@ void Model::newGame(bool* playerType) {
 		playerGene_[i] = playerType[i];
 	}
 	game_->startGame(playerType, seed_);
-
+	reset();
+	for(int i = 0; i < 4; i++) {
+		lastRoundScore_[i] = 0;
+	}
 	update();
 	notify();
 }
 
 void Model::newGame(){
 	game_->startGame(playerGene_, seed_);
-
+	reset();
+	for(int i = 0; i < 4; i++) {
+		lastRoundScore_[i] = 0;
+	}	
 	update();
 	notify();
 }
 
 void Model::updateRoundInfo(){
-	gameOver_ = game_->ifGameOver();
+	std::cout << "updateRoundInfo" << std::endl;
 	roundOver_ = game_->ifRoundOver();
+	for(int i = 0; i < 4; i++){
+		if(roundOver_ && ((currentRoundScore_[i] + lastRoundScore_[i])>=80)){
+			gameOver_ = true;
+		}
+	}
 	for(int i = 0; i < 4; i++) {
 		currentRoundScore_[i] = game_->getPlayerScore(i);
 	}
@@ -103,21 +123,23 @@ void Model::updateRoundInfo(){
 }
 
 void Model::update() {
-	for(int i = 0; i < 26; i++) {
+	std::cout << "in" << std::endl;
+	updatePlayerStaus();
+	updatePlayerHand();
+	updateRoundInfo();
+ 	for(int i = 0; i < 26; i++) {
 		tableHeart_[i] = game_->getTableHeart()[i];
 		tableDiamond_[i] = game_->getTableDiamond()[i];
 		tableSpade_[i] = game_->getTableSpade()[i];
 		tableClub_[i] = game_->getTableClub()[i];
 	}
+	std::cout << "update" << std::endl;
 	if(getRoundOver()){
 		for(int i = 0; i < 4; i++){
 			lastRoundScore_[i] += game_->getPlayerScore(i);
 			std::cout << "lrs " <<lastRoundScore_[i] << std::endl;
 		}
 	}
-	updatePlayerStaus();
-	updatePlayerHand();
-	updateRoundInfo();
 }
 
 void Model::updatePlayerHand(){
