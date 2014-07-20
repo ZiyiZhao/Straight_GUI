@@ -10,22 +10,21 @@
 #ifndef CARDBUTTON_H
 #define CARDBUTTON_H
 
-#include <gtkmm/image.h>
 #include <gtkmm/button.h>
 
 class CardButton: public Gtk::Button{
 public:
-    CardButton(const int&, const int&);
-    ~CardButton(){};
-    int getRank();
-    int getSuit();
+    CardButton(const int&, const int&);         //constructor
+    ~CardButton(){};                            //destructor
+    int getRank();                              //accessor
+    int getSuit();                              //accessor
     
-    void setSuit(int);
-    void setRank(int);
+    void setSuit(int);                          //mutator
+    void setRank(int);                          //mutator
 
 private:
-    int rank_;
-    int suit_;
+    int rank_;                                  //int representation of Rank type
+    int suit_;                                  //int representation of Suit type
 };
 
 

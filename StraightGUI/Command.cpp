@@ -14,9 +14,11 @@ using namespace std;
 istream &operator>>(istream &in, Command &c){
 	c.type = BAD_COMMAND;
 	
+    //take in a command
 	string cmd;
 	in >> cmd;
 	
+    //check for command types, and perform corresponding action
 	if (cmd == "play") {
 		c.type = PLAY;
 		in >> c.card;
@@ -31,6 +33,7 @@ istream &operator>>(istream &in, Command &c){
 		c.type = RAGEQUIT;
 	}
 	
+    //assert if input fails or command type = bad command
 	assert(!in.fail() && c.type != BAD_COMMAND);
 	
 	return in;

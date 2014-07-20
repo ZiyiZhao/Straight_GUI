@@ -22,10 +22,10 @@
 
 class FacadeAdapter {
 public:
-   	FacadeAdapter();	// Constructor(model, playerNum, score, discards, isAI)
-   	~FacadeAdapter();
+   	FacadeAdapter();                            // Constructor(model, playerNum, score, discards, isAI)
+   	~FacadeAdapter();                           // destructor
 
-   	void startGame( bool*, int);
+   	void startGame( bool*, int);                // function to start the game
 
    	int* getTableHeart();
     int* getTableDiamond();

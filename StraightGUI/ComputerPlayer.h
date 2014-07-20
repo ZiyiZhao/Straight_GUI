@@ -16,12 +16,12 @@
 
 class ComputerPlayer: public Player{
 public:
-    ComputerPlayer(const std::string& playerName):Player("Computer " + playerName){};         //constructor
-    ComputerPlayer(const Player& humanPlayer):Player(humanPlayer){};            //copy constructor
-    Command* turn(const std::vector<Card*>) const;                              //create a legal command for the computer player
-    void displayHand(std::vector<Card*>) const{};
+    ComputerPlayer(const std::string& playerName):Player("Computer " + playerName){};           //constructor
+    ComputerPlayer(const Player& humanPlayer):Player(humanPlayer){};                            //copy constructor
+    Command* turn(const std::vector<Card*>) const;                                              //create a legal command for the computer player
+    void displayHand(std::vector<Card*>) const{};                                               //inherited virtual function
     
-    Card* comPlayCard(const std::vector<Card*>) const;
+    Card* comPlayCard(const std::vector<Card*>) const;                                          //returns a card pointer after creating a command
     
 };
 
