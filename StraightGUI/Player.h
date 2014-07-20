@@ -29,7 +29,7 @@ public:
     virtual void displayHand(std::vector<Card*>) const = 0;     //display the current cards on hand
     Card* playCard(const Suit, const Rank);                     //operations to play the card
     void discardCard(const Suit, const Rank);                   //operations to discard the card
-    
+    std::vector<Card*> getPlayerHand();
 private:
     Player& operator=(Player&);                                 // Prohibited assignment operator
     void displayGameTable(const std::vector<Card*>, const std::vector<Card*>);

@@ -12,6 +12,7 @@
 
 
 #include <gtkmm/main.h>
+#include <iostream>
 #include "model.h"
 #include "controller.h"
 #include "view.h"

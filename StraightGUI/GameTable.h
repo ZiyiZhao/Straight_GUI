@@ -19,6 +19,12 @@ public:
 
     void shuffle(int);
     Card* dealCard();
+    void addCardToTable(Card *card);
+
+    int* getTableHeart();
+    int* getTableDiamond();
+    int* getTableSpade();
+    int* getTableClub();
     					                         //start the game
 private:
     //void invitePlayers();                   //add players

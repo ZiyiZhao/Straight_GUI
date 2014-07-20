@@ -11,11 +11,12 @@
 
 
 #include "model.h"
+#include <iostream>
 
 Model::Model(){
 	game_ = new FacadeAdapter();
-
 	// Initalize game table
+	
 	for (int i = ACE; i < RANK_COUNT; i++) {
 		tableHeart_[i*2] = i;
 		tableHeart_[i*2+1] = HEART;
@@ -26,6 +27,7 @@ Model::Model(){
 		tableDiamond_[i*2] = i;
 		tableDiamond_[i*2+1] = DIAMOND;
 	}
+	
 
 	// Initalize player status
 	for (int i = 0; i < 4; i++) {
@@ -48,6 +50,26 @@ void Model::setSeed(int seed) {
 
 void Model::newGame(bool* playerType) {
 	game_->startGame(playerType, seed_);
+
+	update();
+
+}
+
+
+void Model::update() {
+	for(int i = 0; i < 26; i++) {
+		tableHeart_[i] = game_->getTableHeart()[i];
+		tableDiamond_[i] = game_->getTableDiamond()[i];
+		tableSpade_[i] = game_->getTableSpade()[i];
+		tableClub_[i] = game_->getTableClub()[i];
+	}
+
+	int *cardsInHand = game_->getPlayerHand();
+	for(int i = 0; i < 26; i++) {
+		playerHand_[i] = cardsInHand[i];
+	}
+
+	notify();
 }
 
 int* Model::getTableHeart(){

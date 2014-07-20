@@ -6,6 +6,7 @@
 
 #include <gtkmm/image.h>
 #include <gtkmm/label.h>
+#include <iostream>
 #include "PlayerHandView.h"
 
 PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): model_(model), frame_(frame), controller_(c){
@@ -13,8 +14,8 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 	int *playerHand = model_->getPlayerHand();
 	for(int i = 0; i < 13; i++) {
 		playerCards_[i] = Gtk::manage(new CardButton(playerHand[i*2],playerHand[i*2+1]));
-		Gtk::Image *card = new Gtk::Image(deck_.image((Rank)playerHand[i*2],(Suit)playerHand[i*2+1]));
-		playerCards_[i]->set_image(*card);
+		playerCardImage_[i] = new Gtk::Image(deck_.image((Rank)playerHand[i*2],(Suit)playerHand[i*2+1]));
+		playerCards_[i]->set_image(*playerCardImage_[i]);
         
         playerCards_[i]->signal_clicked().connect( sigc::bind<int, int>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]-> getRank(), playerCards_[i]-> getSuit()) );
 
@@ -42,7 +43,10 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 PlayerHandView::~PlayerHandView(){}
 
 void PlayerHandView::update(){
-	// Remove any widget
+	int* cardsInHand = model_->getPlayerHand();
+	for(int i = 0; i < 13; i++) {
+		playerCardImage_[i]->set(deck_.image((Rank)cardsInHand[i*2],(Suit)cardsInHand[i*2+1]));
+	}
 }
 
 void PlayerHandView::cardButtonClicked(const int& rank,const int& suit ){

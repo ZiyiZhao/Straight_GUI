@@ -36,6 +36,7 @@ private:
 
 	Gtk::Button rageQuitButton_;
 	CardButton *playerCards_[13];
+	Gtk::Image *playerCardImage_[13];
     void cardButtonClicked(const int&, const int&);
     void rageButtonClicked();
 };

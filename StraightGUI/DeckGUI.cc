@@ -65,6 +65,9 @@ DeckGUI::~DeckGUI() {
 
 // Returns the image for the specified card.
 Glib::RefPtr<Gdk::Pixbuf> DeckGUI::image( Rank f, Suit s ) {
+	if((int)f == -1) {
+		return DeckGUI::empty();
+	}
 	int index = (int)f + ((int)s * 13);
 	//std::cout << "face: " << f << " suit: " << s << " index: "<< index <<" card: "<< image_names[index] <<std::endl;
 	return deck[ index ];

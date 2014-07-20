@@ -96,7 +96,7 @@ View::View(Controller *c, Model *m): model_(m), controller_(c){
 
     // Player selection
     DialogView dialog(*this, model_);
-    model_->setSeed(0);
+    model_->setSeed(10);
     model_->newGame(dialog.getPlayerType());
 
 } // View::View
@@ -104,6 +104,8 @@ View::View(Controller *c, Model *m): model_(m), controller_(c){
 View::~View() {}
 
 void View::update(){
+    //Update
+    std::cout <<"Update"<<std::endl;
     show_all();
 }
 

@@ -38,6 +38,8 @@ Player::PlayerData::PlayerData(const PlayerData& playerData):playerName_(playerD
     }
 }
 
+
+
 /*
  Player Functions
  */
@@ -180,4 +182,8 @@ void Player::discardCard(const Suit suit, const Rank rank){
 void Player::clearHand(){
     playerData->cardsInHand_.clear();
     playerData->discardedCards_.clear();
+}
+
+std::vector<Card*> Player::getPlayerHand(){
+    return playerData->cardsInHand_;
 }

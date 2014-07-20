@@ -33,6 +33,8 @@ public:
     
     void newGame(bool*);
 
+    void update();
+
     int* getTableHeart();
     int* getTableDiamond();
     int* getTableSpade();

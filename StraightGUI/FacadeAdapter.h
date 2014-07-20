@@ -10,6 +10,7 @@
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 #include "Deck.h"
+#include "Card.h"
 
 class FacadeAdapter {
 public:
@@ -17,7 +18,13 @@ public:
    	~FacadeAdapter();
 
    	void startGame( bool*, int);
+
+   	int* getTableHeart();
+    int* getTableDiamond();
+    int* getTableSpade();
+    int* getTableClub();
    	
+   	int* getPlayerHand();
 private:
 	
 	// The playing table

@@ -57,7 +57,12 @@ private:
     Gtk::Image *heartCardImg_[13];         		
 	Gtk::Image *spadeCardImg_[13];      	
 	Gtk::Image *diamondCardImg_[13];    	  	
-	Gtk::Image *clubCardImg_[13];          		
+	Gtk::Image *clubCardImg_[13];
+
+	int currentTableHeart_[26];
+	int currentTableDiamond_[26];
+	int currentTableSpade_[26];
+	int currentTableClub_[26];           		
 
 
 };

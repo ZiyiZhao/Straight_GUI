@@ -49,3 +49,36 @@ void FacadeAdapter::startGame(bool *playerType, int seed){
 	//std::cout << "Done everything" << std::endl;
 	//std::cout << "Player has 7S: " << currentPlayer_ << std::endl;
 }
+
+int* FacadeAdapter::getPlayerHand() {
+
+	std::vector<Card*> cardsInHandVect = players_[currentPlayer_]->getPlayerHand();
+	
+	int cardsInHandArr[26];
+	for(int i = 0; i < 26; i++) {
+		cardsInHandArr[i] = -1;
+	}
+
+	for(int i = 0; i < cardsInHandVect.size(); i++) {
+		cardsInHandArr[i*2] = (int)(cardsInHandVect.at(i)->getRank());
+		cardsInHandArr[i*2+1] = (int)(cardsInHandVect.at(i)->getSuit());
+	}
+
+	return cardsInHandArr;
+}
+
+int* FacadeAdapter::getTableHeart() {
+    return gameTable_->getTableHeart();
+}
+
+int* FacadeAdapter::getTableDiamond() {
+    return gameTable_->getTableDiamond();
+}
+
+int* FacadeAdapter::getTableSpade() {
+    return gameTable_->getTableSpade();
+}
+
+int* FacadeAdapter::getTableClub() {
+    return gameTable_->getTableClub();
+}
