@@ -114,14 +114,65 @@ View::~View() {
 
 // update the current view with new content
 void View::update(){
-    show_all();
-    if(model_->getGameOver()){
+    //show_all();
+    
+    if (model_->getRoundOver()){
+        Gtk::Dialog dialog( "Game Status", *this );
+        Gtk::VBox* contentArea = dialog.get_vbox();
+        Gtk::Label message("Player Status:  ");
+        
+        contentArea->pack_start(message, true, false);
+        dialog.show_all_children();
+        //discarded cards and score for each player
+        //
+        //
+        //
+        //
+        
+        if (model_->getGameOver()){
+            //if (true){
+            
+            //in case of multiple player wins
+            std::string winnerPlayers = "";
+            //get winner
+            //
+            //
+            
+            Gtk::Label winner ("Player " + winnerPlayers + "wins! Congratulations! ");
+            contentArea->pack_start(winner, true, false);
+            winner.show();
+            
+            Gtk::Button * okButton = dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 
-    } else if (model_->getRoundOver()){
+        } else {
+            Gtk::Label nextRound("Ready for next round? Let's start!");
+            contentArea->pack_start(nextRound, true, false);
+            nextRound.show();
+            
+            Gtk::Button * nextRoundButton = dialog.add_button( "Continue Game", Gtk::RESPONSE_ACCEPT);
+        }
+        
+        // Wait for a response from the dialog box.
+        int result = dialog.run();
+        
+        // determine corresponding action for different player events
+        switch (result) {
+            case Gtk::RESPONSE_OK:
+                // what happens when the game ends?
+                break;
+            case Gtk::RESPONSE_ACCEPT:
+                // continue to the next round
+                break;
+            default:
+                std::cout << "unexpected button clicked" << std::endl;
+                break;
+        } // switch
+        
 
+    
     }
-    std::cout << "Round over: " << model_->getRoundOver() << std::endl;
-    std::cout << "Game over: " << model_->getGameOver() << std::endl;
+    
+    
 }
 
 void View::on_menuAction_quit() {
