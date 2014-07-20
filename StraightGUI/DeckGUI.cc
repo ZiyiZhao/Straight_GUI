@@ -49,6 +49,8 @@ DeckGUI::~DeckGUI() {
 Glib::RefPtr<Gdk::Pixbuf> DeckGUI::image( Rank f, Suit s ) {
 	if((int)f == -1) {
 		return DeckGUI::empty();
+	} else if((int)f == -2){
+		return DeckGUI::null();
 	}
 	int index = (int)f + ((int)s * 13);
 

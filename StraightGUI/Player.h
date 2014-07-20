@@ -23,7 +23,8 @@ public:
     int calculateScore() const;                                 // Calculate score after each round
     void getDeltCards(Card*);                                   // Add a card to the hand
     bool hasSevenSpade() const;                                 // Checks if the player has the seven of spade
-    void printDiscardedCards() const;                           // Print the list of discarded cards
+    std::vector<char> getDiscardedCards() const;                           // Print the list of discarded cards
+    std::vector<char> getavailableCards(const std::vector<Card*>) const; 
     void clearHand();                                           //clear the cards without deleting the objects that it points to
     virtual Command* turn(std::vector<Card*>) const = 0;        //check for legal plays from the command
     virtual void displayHand(std::vector<Card*>) const = 0;     //display the current cards on hand

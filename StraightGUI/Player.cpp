@@ -164,14 +164,16 @@ std::vector<Card*> Player::getLegalCards(const std::vector<Card*> cardsOnTable) 
 }
 
 // Print the list of discarded cards
-void Player::printDiscardedCards() const {
-    std::cout << "Player " << playerData->playerName_ << "'s discards: ";
-    
+std::vector<char> Player::getDiscardedCards() const {
+    std::vector<char> retArr;
+
     //the list of cards are in the order where they're discarded
     for(unsigned int index = 0; index < playerData->discardedCards_.size(); index++) {
         std::cout << *playerData->discardedCards_[index] << " ";
+        retArr.push_back(ranks[playerData->discardedCards_.at(index)->getRank()][0]);
+        retArr.push_back(suits[playerData->discardedCards_.at(index)->getSuit()][0]);
     }
-    std::cout << std::endl;
+    return retArr;
 }
 
 // Discard Card
@@ -237,4 +239,15 @@ std::string Player::getPlayerName(){
 
 int Player::getNumOfDiscardCards(){
     return playerData->discardedCards_.size();
+}
+
+std::vector<char> Player::getavailableCards(const std::vector<Card*> tableCards) const {
+    std::vector<char> retArr;
+    for(int i = 0; i < playerData->cardsInHand_.size(); i++){
+        if(checkCardPlayable(playerData->cardsInHand_.at(i), tableCards)){
+            retArr.push_back(ranks[playerData->cardsInHand_.at(i)->getRank()][0]);
+            retArr.push_back(suits[playerData->cardsInHand_.at(i)->getSuit()][0]);
+        }
+    }
+    return retArr;
 }

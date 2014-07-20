@@ -27,8 +27,7 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 		playerCards_[i] = Gtk::manage(new CardButton(playerHand[i*2],playerHand[i*2+1]));
 		playerCardImage_[i] = new Gtk::Image(deck_.image((Rank)playerHand[i*2],(Suit)playerHand[i*2+1]));
 		playerCards_[i]->set_image(*playerCardImage_[i]);
-        
-        //playerCards_[i]->signal_clicked().connect( sigc::bind<int, int>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]-> getRank(), playerCards_[i]-> getSuit()) );
+        playerCards_[i]->set_sensitive(false);
         playerCards_[i]->signal_clicked().connect( sigc::bind<CardButton*>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]));
 
         
@@ -43,6 +42,7 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 	playerOption_.add(playerInfo_);
 
 	rageQuitButton_.set_label("RAGE QUIT!!");
+	rageQuitButton_.set_sensitive(false);
     rageQuitButton_.signal_clicked().connect(sigc::mem_fun( *this, &PlayerHandView::rageButtonClicked) );
 
 	playerOption_.add(rageQuitButton_);

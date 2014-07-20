@@ -125,12 +125,8 @@ int* FacadeAdapter::getPlayerName() {
 	return playerName;
 }
 
-int* FacadeAdapter::getPlayerScore(){
-	int playerScore[4];
-	for(int i = 0; i < 4; i++) {
-		playerScore[i] = players_[i]->calculateScore();
-	}
-	return playerScore;
+int FacadeAdapter::getPlayerScore(int index){
+	return players_[index]->calculateScore();
 }
 
 int* FacadeAdapter::getDiscardCards(){
@@ -186,3 +182,14 @@ void FacadeAdapter::checkGameOver(){
 	}
 	roundOver_ = (cardLeft == 0);
 }
+
+
+std::vector<char> FacadeAdapter::getPlayerDiscardHand(int index){
+	return (players_[index]-> getDiscardedCards());
+}
+
+std::vector<char> FacadeAdapter::getAvailableCards(){
+	return (players_[currentPlayer_]->getavailableCards(gameTable_->getCurrentTable())); 
+}
+
+

@@ -32,12 +32,14 @@ public:
     int* getTableSpade();
     int* getTableClub();
 
-    int* getPlayerScore();
+    int getPlayerScore(int);
     int* getDiscardCards();
 
     int* getPlayerName();
    	
    	int* getPlayerHand();
+    std::vector<char> getPlayerDiscardHand(int);
+    std::vector<char> getAvailableCards();
 
    	bool playCard(int, int);
 

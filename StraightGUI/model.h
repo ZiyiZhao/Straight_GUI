@@ -87,6 +87,12 @@ private:
     int lastRoundDiscards_[4];
 
     int currentRoundScore_[4];
+    std::vector<char> player1Discards_;
+    std::vector<char> player2Discards_;
+    std::vector<char> player3Discards_;
+    std::vector<char> player4Discards_;
+
+    std::vector<char> availableCards_;
 
 };
 

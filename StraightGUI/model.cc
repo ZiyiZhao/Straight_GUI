@@ -16,13 +16,13 @@ Model::Model(){
 	// Initalize game table
 	
 	for (int i = ACE; i < RANK_COUNT; i++) {
-		tableHeart_[i*2] = i;
+		tableHeart_[i*2] = -2;
 		tableHeart_[i*2+1] = HEART;
-		tableSpade_[i*2] = i;
+		tableSpade_[i*2] = -2;
 		tableSpade_[i*2+1] = SPADE;
-		tableClub_[i*2] = i;
+		tableClub_[i*2] = -2;
 		tableClub_[i*2+1] = CLUB;
-		tableDiamond_[i*2] = i;
+		tableDiamond_[i*2] = -2;
 		tableDiamond_[i*2+1] = DIAMOND;
 	}
 	
@@ -35,7 +35,7 @@ Model::Model(){
 
 	// Initalize Player Hand
 	for (int i = ACE; i < RANK_COUNT; i++) {
-		playerHand_[i*2] = i;
+		playerHand_[i*2] = -2;
 		playerHand_[i*2+1] = HEART;
 	}
 	infoForPlayer_ = "Welcome Player!";
@@ -67,9 +67,12 @@ void Model::updateRoundInfo(){
 	gameOver_ = game_->ifGameOver();
 	roundOver_ = game_->ifRoundOver();
 	for(int i = 0; i < 4; i++) {
-		//currentRoundScore_[i] = game_->getPlayerScore(i);
-
+		currentRoundScore_[i] = game_->getPlayerScore(i);
 	}
+	player1Discards_ = game_->getPlayerDiscardHand(0);
+	player2Discards_ = game_->getPlayerDiscardHand(1);
+	player3Discards_ = game_->getPlayerDiscardHand(2);
+	player4Discards_ = game_->getPlayerDiscardHand(3);
 }
 
 void Model::update() {
@@ -81,7 +84,7 @@ void Model::update() {
 	}
 	if(getRoundOver()){
 		for(int i = 0; i < 4; i++){
-			lastRoundScore_[i] += game_->getPlayerScore()[i];
+			lastRoundScore_[i] += game_->getPlayerScore(i);
 		}
 	}
 	updatePlayerStaus();
@@ -96,6 +99,14 @@ void Model::updatePlayerHand(){
 	}
 	currentPlayerType_ = game_->getCurrentPlayerType();
 	currentPlayerNumber_ = game_->getCurrentPlayerNumber() + 1;
+	availableCards_ = game_->getAvailableCards();
+
+	std::ostringstream oss;
+	oss << "Available Cards: ";
+	for(int i = 0; i < availableCards_.size(); i++){
+		oss << availableCards_.at(i);
+	}
+	std::cout << oss.str() << std::endl;
 }
 
 void Model::updatePlayerStaus(){
