@@ -59,12 +59,16 @@ private:
     //player's card on hand
     Gtk::Frame playerHandWrapper_;
     PlayerHandView *playerHandView_;
+    
+    //store seed
+    int seed_;
 
 	// Action for menu items
 	virtual void on_menuAction_new();
 	virtual void on_menuAction_quit();
 	virtual void on_menuAction_save();
     virtual void on_menuAction_restore();
+    virtual void on_menuAction_seed(Gtk::Window & parentWindow);
 
 
 }; // View
