@@ -43,7 +43,9 @@ View::View(Controller *c, Model *m): model_(m), controller_(c){
     m_refActionGroup->add( Gtk::ToggleAction::create("Save",
                                                      Gtk::Stock::SAVE, "Save" ),
                           sigc::mem_fun(*this, &View::on_menuAction_save) );
-    m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore a saved game"),
+    m_refActionGroup->add( Gtk::Action::create("RestoreSavedGame", Gtk::Stock::DIRECTORY, "Restore saved game"),
+                          sigc::mem_fun(*this, &View::on_menuAction_restore) );
+    m_refActionGroup->add( Gtk::Action::create("StoreSeed", Gtk::Stock::DIRECTORY, "Store Seed"),
                           sigc::mem_fun(*this, &View::on_menuAction_restore) );
     m_refActionGroup->add( Gtk::Action::create("Quit", Gtk::Stock::QUIT),
                           sigc::mem_fun(*this, &View::on_menuAction_quit) );
