@@ -14,64 +14,57 @@
 #include "subject.h"
 #include "FacadeAdapter.h"
 
-
-const int numFaces = 6;
-const int numSuits = 4;
-const int numCards = numFaces * numSuits;
-
-
 class Model : public Subject {
 public:
-    Model();
-    ~Model();
+    Model();                                    //constructor
+    ~Model();                                   //destructor
 
-    void setSeed(int);
+    void setSeed(int);                          //mutator of seed_
     
-    void newGame(bool*);
+    void newGame(bool*);                        //constructs a new game
 
-    void update();
+    void update();                              //updates self contained information from changed logic by user events
 
-    void playCard(int, int);
+    void playCard(int, int);                    //a card is played
+    
+                                                //accessor of table content
+    int* getTableHeart();                       //hearts
+    int* getTableDiamond();                     //diamonds
+    int* getTableSpade();                       //spade
+    int* getTableClub();                        //clubs
 
-    int* getTableHeart();
-    int* getTableDiamond();
-    int* getTableSpade();
-    int* getTableClub();
+    void updatePlayerStaus();                   //updates player status info
+    void updatePlayerHand();                    //updates player hand info
+    void updateRoundInfo();                     //updates round info info
 
-    void updatePlayerStaus();
-    void updatePlayerHand();
-    void updateRoundInfo();
+    void rage();                                //handles rage quits
 
-    void rage();
+    std::string* getPlayerType();               //accessor of player type
+    std::string* getPlayerStatus();             //accessor of player status
 
-    std::string* getPlayerType();
-    std::string* getPlayerStatus();
+    int* getPlayerHand();                       //accessor of player current cards
+    std::string getInfoForPlayer();             //accessor of player message
 
-    int* getPlayerHand();
-    std::string getInfoForPlayer();
+    int getCurrentPlayerType();                 //determine the player type
+    int getCurrentPlayerNumber();               //determine the player id number
 
-    int getCurrentPlayerType();
-    int getCurrentPlayerNumber();
-
-    bool getGameOver();
-    bool getRoundOver();
+    bool getGameOver();                         //check if game over
+    bool getRoundOver();                        //check if round over
 
 private:
-	// Facade Design
-    FacadeAdapter *game_;
+    FacadeAdapter *game_;                       // Facade Design
 
-    // Game seed
-    int seed_;
+    int seed_;                                  // Game seed
 
-    // Table Game Data
-    int tableHeart_[26];
-    int tableDiamond_[26];
-    int tableSpade_[26];
-    int tableClub_[26];
+                                                // Table Game Data
+    int tableHeart_[26];                        // hearts on table
+    int tableDiamond_[26];                      // diamonds on table
+    int tableSpade_[26];                        // spades on table
+    int tableClub_[26];                         // clubs on table
 
-    // Players Status Data
-    std::string playerType_[4];
-    std::string playerStatus_[4];
+                                                // Players Status Data
+    std::string playerType_[4];                 // stores player type
+    std::string playerStatus_[4];               
 
     // Player's Current Hand
     int playerHand_[26];

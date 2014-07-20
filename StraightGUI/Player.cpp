@@ -19,7 +19,6 @@ const std::string Player::ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",
     "7", "8", "9", "10", "J", "Q", "K"};
 
 
-
 /*
  Struct Functions
  */
@@ -31,14 +30,21 @@ Player::PlayerData::PlayerData(std::string playerName):playerName_(playerName){
     
 // Copy constructor
 Player::PlayerData::PlayerData(const PlayerData& playerData){
+    // mainly used for handling rage quits
     std::ostringstream oss;
     oss << "Computer ";
     oss << playerData.playerName_[playerData.playerName_.length()-1];
+    // assigns player name
     playerName_ = oss.str();
+    // copys player score
     playerScore_ = playerData.playerScore_;
+    
+    // copys the set of cards on hand
     for(unsigned int index = 0; index < playerData.cardsInHand_.size(); index++) {
         cardsInHand_.push_back(playerData.cardsInHand_[index]);
     }
+    
+    // copys the set of discarded cards by the player
     for(unsigned int index = 0; index < playerData.discardedCards_.size(); index++) {
         discardedCards_.push_back(playerData.discardedCards_[index]);
     }
@@ -103,7 +109,7 @@ Card* Player::removeCardFromHand(const Suit suit, const Rank rank){
     
     for(unsigned int index = 0; index < playerData->cardsInHand_.size(); index++){
         
-        //find the selected card on hand
+        //find the selected card on hand, and remove the card
         if(playerData->cardsInHand_[index]->getRank() == rank && playerData->cardsInHand_[index]->getSuit() == suit){
             Card* cardToReturn = playerData->cardsInHand_[index];
             playerData->cardsInHand_.erase(playerData->cardsInHand_.begin()+index);
@@ -118,7 +124,7 @@ Card* Player::removeCardFromHand(const Suit suit, const Rank rank){
 // Calculate the score based on the player's discarded cards
 int Player::calculateScore() const{
     int score = 0;
-    
+    // loop through the list of discarded cards and compare with the enum rank
     for(unsigned int index = 0; index < playerData->discardedCards_.size(); index++){
         for(int rankIndex = 0; rankIndex < RANK_COUNT; rankIndex++) {
             
@@ -190,6 +196,7 @@ void Player::clearHand(){
     playerData->discardedCards_.clear();
 }
 
+//accessor
 std::vector<Card*> Player::getPlayerHand(){
     return playerData->cardsInHand_;
 }
@@ -203,12 +210,14 @@ int Player::playCardType(int rank, int suit, const std::vector<Card*> currentTab
     Card* card;
     for(int i = 0; i < playerData->cardsInHand_.size(); i++){
         if(playerData->cardsInHand_.at(i)->getRank() == (Rank)rank &&
-            playerData->cardsInHand_.at(i)->getSuit() == (Suit)suit) { 
+            playerData->cardsInHand_.at(i)->getSuit() == (Suit)suit) {
+            // found the card on hand
             card = playerData->cardsInHand_.at(i);
             break;
         }
     } 
 
+    // check if the card exists in the set of legalPlays
     for(int i = 0; i < legalPlays.size(); i++){
         // if the card choosen is in legal cards
         if(*card == *legalPlays.at(i)){
@@ -225,25 +234,31 @@ int Player::playCardType(int rank, int suit, const std::vector<Card*> currentTab
     return -1;
 }
 
+//operations to play the card
 Card* Player::playCard(int rank, int suit) {
     return playCard((Suit)suit, (Rank)rank);
 }
 
+//operation to discard card
 void Player::discardCard(int rank, int suit) {
     discardCard((Suit)suit, (Rank)rank);
 }
 
+//accessor
 std::string Player::getPlayerName(){
     return playerData->playerName_;
 }
 
+//get the size of discarded cards
 int Player::getNumOfDiscardCards(){
     return playerData->discardedCards_.size();
 }
 
+//get all the playable cards
 std::vector<char> Player::getavailableCards(const std::vector<Card*> tableCards) const {
     std::vector<char> retArr;
     for(int i = 0; i < playerData->cardsInHand_.size(); i++){
+        // if the cards is playable, then add to the vector
         if(checkCardPlayable(playerData->cardsInHand_.at(i), tableCards)){
             retArr.push_back(ranks[playerData->cardsInHand_.at(i)->getRank()][0]);
             retArr.push_back(suits[playerData->cardsInHand_.at(i)->getSuit()][0]);

@@ -12,18 +12,22 @@ HumanPlayer::HumanPlayer(std::string playerName):Player("Player " + playerName){
 
 //check for legal command
 Command* HumanPlayer::turn(std::vector<Card*> cardsOnTable) const{
-    
+    //construct a new command
     Command* command = new Command();
     bool legalPlay = false;
     do{
         legalPlay = false;
         std::cout << ">";
+        //user input of a command
         std::cin>>*command;
+        
+        //cases of user input
         if(command->type == PLAY) {
             std::vector<Card*> legalCards = getLegalCards(cardsOnTable);
             
             //check if the offered card is one of the legal cards to play
             for(unsigned int index = 0; index < legalCards.size(); index++){
+                //if the card is a legal play, legalPlay = true
                 if(command->card.getSuit() == legalCards[index]->getSuit() &&
                    command->card.getRank() == legalCards[index]->getRank()){
                     legalPlay = true;
@@ -38,6 +42,7 @@ Command* HumanPlayer::turn(std::vector<Card*> cardsOnTable) const{
             if(legalCards.size() == 0) {
                 legalPlay = true;
             } else {
+                //when you have a legal play
                 std::cout << "You have a legal play. You may not discard." << std::endl;
             }
         } else if(command->type == QUIT){
@@ -83,6 +88,7 @@ void HumanPlayer::displayGameTable(const std::vector<Card*> cardsOnTable, const 
     for(unsigned int index = 0; index < cardsOnTable.size(); index++){
         //store the cards individually according to its suit
         switch (cardsOnTable[index]->getSuit()){
+            //adds cards to its corresponding array of cards
             case(CLUB):
                 clubs.push_back(cardsOnTable[index]);
                 break;
@@ -109,6 +115,7 @@ void HumanPlayer::displayGameTable(const std::vector<Card*> cardsOnTable, const 
     //prepare to display the cards on hand
     std::string playerHand = "Your hand:";
     
+    //display the card on hand (add into array)
     for(unsigned int index = 0; index < playerData-> cardsInHand_.size(); index++){
         playerHand.append(" "+ranks[playerData->cardsInHand_[index]->getRank()]+suits[playerData->cardsInHand_[index]->getSuit()]);
     }
@@ -117,6 +124,7 @@ void HumanPlayer::displayGameTable(const std::vector<Card*> cardsOnTable, const 
     std::string playerLegalCards = "Legal plays:";
     for(unsigned int index = 0; index < playerData->cardsInHand_.size(); index++){
         for(unsigned int legalIndex = 0; legalIndex < legalPlays.size(); legalIndex++){
+            //compare the cards on hand and legal plays, find the legal plays on hand
             if(playerData->cardsInHand_[index] == legalPlays[legalIndex]){
                 playerLegalCards.append(" "+ranks[playerData->cardsInHand_[index]->getRank()]+suits[playerData->cardsInHand_[index]->getSuit()]);
             }
@@ -138,6 +146,7 @@ void HumanPlayer::displayGameTable(const std::vector<Card*> cardsOnTable, const 
 //returns the string that contains the information of the sorted list of cards
 std::string HumanPlayer::sort(const std::vector<Card*>& cards) const{
     std::string combine = "";
+    //try to sort the list of cards
     for (int i = 0; i < 13; i ++){
         for (int j = 0; j < cards.size(); j++){
             // append the card rank to the string
@@ -147,6 +156,7 @@ std::string HumanPlayer::sort(const std::vector<Card*>& cards) const{
     return combine;
 }
 
+//inherited from player's pure virtual function
 Card* HumanPlayer::comPlayCard(const std::vector<Card*> c) const{
     return c.at(0);
 }

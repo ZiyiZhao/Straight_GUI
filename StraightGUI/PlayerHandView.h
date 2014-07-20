@@ -30,26 +30,26 @@ class CardButton;
 class PlayerHandView : public Observer{
 public:
    	PlayerHandView(Model* ,Gtk::Frame*, Controller *c);	// Constructor(model, playerNum, score, discards, isAI)
-   	~PlayerHandView();
-   	virtual void update();
+   	~PlayerHandView();                                  // destructor
+   	virtual void update();                              // inherited from Observer
 private:
 	Gtk::Frame *frame_;
-	Model *model_;
+	Model *model_;                                      // a pointer to model
     
-	Controller *controller_;                // Strategy Pattern member (plus signal handlers)
+	Controller *controller_;                            // Strategy Pattern member (plus signal handlers)
 
-	DeckGUI deck_;                          // Card Images
+	DeckGUI deck_;                                      // Card Images
 
-	Gtk::VBox playerOption_;
+	Gtk::VBox playerOption_;                            // containers for widgets
 	Gtk::Frame playerInfo_;
 	Gtk::HBox playerHand_;
 
-	Gtk::Button rageQuitButton_;
-	CardButton *playerCards_[13];
-	Gtk::Image *playerCardImage_[13];
-    //void cardButtonClicked(const int&, const int&);
-    void cardButtonClicked(CardButton*);
-    void rageButtonClicked();
+	Gtk::Button rageQuitButton_;                        // button for rage quit
+	CardButton *playerCards_[13];                       // list of card buttons
+	Gtk::Image *playerCardImage_[13];                   // list of card images
+    void cardButtonClicked(CardButton*);                // user event call functions for card button
+    void rageButtonClicked();                           // user event call functions for rage button
+
 };
 #endif
 

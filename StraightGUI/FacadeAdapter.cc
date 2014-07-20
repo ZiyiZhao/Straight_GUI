@@ -16,31 +16,38 @@
 #include <iostream>
 #include <sstream>
 
+// constructor
 FacadeAdapter::FacadeAdapter(){
 }
 
+//destructor
 FacadeAdapter::~FacadeAdapter(){
+    //delete every player individually
 	for(int i = 0; i < 4; i++) {
 		delete players_[i];
 	}
 	delete gameTable_;
 }
 
+//start game function
 void FacadeAdapter::startGame(bool *playerType, int seed){
 
 	// Create a new game table
 	gameTable_ = new GameTable();
+    
 	// Shuffle the deck
 	gameTable_->shuffle(seed);
 	roundOver_ = false;
 	gameOver_ = false;
 
+    //create players by player input of player type
 	for(int i = 0; i < 4; i++) {
         
         // Get the player number
         std::ostringstream oss;
         oss << ( i+1 );
-
+        
+        // playerType is a bool array where true is human, false is computer
 		if(playerType[i]) {
 			players_[i] = new HumanPlayer(oss.str());
 		} else {
@@ -48,7 +55,7 @@ void FacadeAdapter::startGame(bool *playerType, int seed){
 		}
 	}
 	
-	// Assign the cards to players 
+	// Assign the cards to players, each player gets 13 cards
 	for(int i = 0; i < 52; i++) {
 		players_[i/13]->getDeltCards(gameTable_->dealCard());
 	}

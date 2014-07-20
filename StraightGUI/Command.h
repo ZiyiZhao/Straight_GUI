@@ -12,11 +12,12 @@
 #include "Card.h"
 #include <istream>
 
+//list of command
 enum Type { PLAY, DISCARD, DECK, QUIT, RAGEQUIT, BAD_COMMAND };
 
 struct Command{
-	Type type;
-	Card card;
+	Type type;                      //type of the command
+	Card card;                      //card
 	
 	Command() : type(BAD_COMMAND), card(SPADE, ACE) {}
 };

@@ -80,7 +80,8 @@ void Game::startGame(){
             
             //inputs player's command
             Command *command = players_[turnIndex%4]->turn(cardsOnTable_);
-        
+            
+            //get the current command type
             if(command->type == DECK){
                 do{
                     //display total deck
@@ -155,21 +156,21 @@ void Game::startGame(){
             min = players_[index]->getScore();
         }
     }
+    // declare winner, in case of multiple winners
     for (int index = 0; index < 4; index ++){
+        //find all the player that has the smallest score
         if (players_[index]->getScore()== min){
             std::cout << "Player " << index+1 << " wins!" << std::endl;
         }
     }
 }
 
-
-
-
 // invite 4 players of either human or computer at the beginning of a game
 void Game::invitePlayers(){
     std::string playerType;
     
     for(int index = 0; index < 4; index++){
+        //user input to defind player types
         std::cout << "Is player "<<(index+1)<<" a human(h) or a computer(c)?" << std::endl << ">";
         std::cin >> playerType;
         

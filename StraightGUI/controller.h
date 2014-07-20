@@ -16,11 +16,12 @@ class Model;
 
 class Controller {
 public:
-    Controller( Model* );
-    void cardButtonClicked(const int&, const int&);
-    void rageButtonClicked();
+    Controller( Model* );                           //constructor
+    ~Controller();                                  //destructor
+    void cardButtonClicked(const int&, const int&); //controls when a card is played
+    void rageButtonClicked();                       //controls when the rage button is clicked
 private:
-    Model *model_;
+    Model *model_;                                  //model instance
 };  // Controller
 
 

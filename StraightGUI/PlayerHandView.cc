@@ -20,8 +20,10 @@
 #include <sstream>
 #include "PlayerHandView.h"
 
+//constructor
 PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): model_(model), frame_(frame), controller_(c){
 
+    
 	int *playerHand = model_->getPlayerHand();
 	for(int i = 0; i < 13; i++) {
 		playerCards_[i] = Gtk::manage(new CardButton(playerHand[i*2],playerHand[i*2+1]));
