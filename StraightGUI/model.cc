@@ -26,6 +26,9 @@ Model::Model(){
 		tableDiamond_[i*2+1] = DIAMOND;
 	}
 	
+	for(int i = 0; i < 4; i++) {
+		lastRoundScore_[i] = 0;
+	}
 
 	// Initalize player status
 	for (int i = 0; i < 4; i++) {
@@ -50,14 +53,38 @@ void Model::setSeed(int seed) {
 	seed_ = seed;
 }
 
+void Model::reset(){
+	player1Discards_.clear();
+	player2Discards_.clear();
+	player3Discards_.clear();
+	player4Discards_.clear();
+	availableCards_.clear();
+	roundOver_ = false;
+	gameOver_ = false;
+	infoForPlayer_ = "Welcome";
+
+	for(int i = 0; i < 26; i++) {
+		tableDiamond_[i] = -1;
+		tableHeart_[i] = -1;
+		tableSpade_[i] = -1;
+		tableClub_[i] = -1;
+		playerHand_[i] = -1;
+	}
+
+}
+
 void Model::newGame(bool* playerType) {
-	//delete game_;
+	for(int i = 0; i < 4; i++){
+		playerGene_[i] = playerType[i];
+	}
 	game_->startGame(playerType, seed_);
 
-	for(int i = 0; i < 4; i++) {
-		lastRoundScore_[i] = 0;
-		lastRoundDiscards_[i] = 0;
-	}
+	update();
+	notify();
+}
+
+void Model::newGame(){
+	game_->startGame(playerGene_, seed_);
 
 	update();
 	notify();
@@ -85,6 +112,7 @@ void Model::update() {
 	if(getRoundOver()){
 		for(int i = 0; i < 4; i++){
 			lastRoundScore_[i] += game_->getPlayerScore(i);
+			std::cout << "lrs " <<lastRoundScore_[i] << std::endl;
 		}
 	}
 	updatePlayerStaus();
@@ -99,14 +127,7 @@ void Model::updatePlayerHand(){
 	}
 	currentPlayerType_ = game_->getCurrentPlayerType();
 	currentPlayerNumber_ = game_->getCurrentPlayerNumber() + 1;
-	availableCards_ = game_->getAvailableCards();
-
-	std::ostringstream oss;
-	oss << "Available Cards: ";
-	for(int i = 0; i < availableCards_.size(); i++){
-		oss << availableCards_.at(i);
-	}
-	std::cout << oss.str() << std::endl;
+	availableCards_ = game_->getAvailableCards(); //get available cards
 }
 
 void Model::updatePlayerStaus(){
@@ -125,7 +146,7 @@ void Model::updatePlayerStaus(){
 		oss2 << lastRoundScore_[i];//getPlayerScore()[i]
 		oss2 << "\n";
 		oss2 << "Player Discards:  ";
-		oss2 << game_->getDiscardCards()[i] + lastRoundDiscards_[i];
+		oss2 << game_->getDiscardCards()[i];
 		playerStatus_[i] = oss2.str();
 	}
 }
@@ -185,6 +206,14 @@ std::string Model::getInfoForPlayer(){
 void Model::rage(){
 	game_->rage();
 	update();
+	int* playerName = game_->getPlayerName();
+	for(int i = 0; i < 4; i++){
+		if(playerName[i] == 1){
+			playerGene_[i] = true;
+		} else {
+			playerGene_[i] = false;
+		}
+	}
 	notify();
 }
 
@@ -194,5 +223,25 @@ bool Model::getGameOver(){
 
 bool Model::getRoundOver(){
 	return roundOver_;
+}
+
+std::vector<char> Model::getDiscardCards(const int index) const {
+	if(index == 0) {
+		return player1Discards_;
+	} else if (index == 1) {
+		return player2Discards_;
+	} else if (index == 2) {
+		return player3Discards_;
+	} else {
+		return player4Discards_;
+	}
+}
+
+int Model::getLastRoundScore(int index) {
+	return lastRoundScore_[index];
+}
+
+int Model::getCurrentRoundScore(int index){
+	return currentRoundScore_[index];
 }
 

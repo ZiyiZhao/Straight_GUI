@@ -28,6 +28,7 @@ public:
     void setSeed(int);
     
     void newGame(bool*);
+    void newGame();
 
     void update();
 
@@ -53,8 +54,15 @@ public:
     int getCurrentPlayerType();
     int getCurrentPlayerNumber();
 
+    int getCurrentRoundScore(int);
+    int getLastRoundScore(int);
+
     bool getGameOver();
     bool getRoundOver();
+
+    void reset();
+
+    std::vector<char> getDiscardCards(const int) const;
 
 private:
 	// Facade Design
@@ -84,15 +92,15 @@ private:
     bool roundOver_;
 
     int lastRoundScore_[4];
-    int lastRoundDiscards_[4];
-
     int currentRoundScore_[4];
+
     std::vector<char> player1Discards_;
     std::vector<char> player2Discards_;
     std::vector<char> player3Discards_;
     std::vector<char> player4Discards_;
 
     std::vector<char> availableCards_;
+    bool playerGene_[4];
 
 };
 

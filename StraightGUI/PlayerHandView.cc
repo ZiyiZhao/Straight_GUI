@@ -85,7 +85,7 @@ void PlayerHandView::update(){
 			playerCards_[i]->set_sensitive(false);
 		}
 	}
-
+	rageQuitButton_.set_sensitive(true);
 	playerInfo_.remove();
 	playerInfo_.add(*(new Gtk::Label(model_->getInfoForPlayer())));
 }
