@@ -20,6 +20,8 @@ public:
     int getRank();
     int getSuit();
     
+    void setSuit(int);
+    void setRank(int);
 
 private:
     int rank_;

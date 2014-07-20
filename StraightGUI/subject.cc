@@ -11,6 +11,7 @@
 
 
 #include <set>
+#include <iostream>
 #include "subject.h"
 #include "observer.h"
 
@@ -26,6 +27,11 @@ void Subject::unsubscribe (Observer *formerView) {
 
 void Subject::notify() {
   Observers::iterator i;
-  for (i = observers_.begin(); i != observers_.end(); ++i)
-    (*i)->update();
+    int ii = 0;
+    std::cout << observers_.size() << std::endl;
+    for (i = observers_.begin(); i != observers_.end(); ++i){
+        std::cout << "Notify start ---------------------------------------------------\n" << ii++ <<"\n"<<std::endl;
+        (*i)->update();
+        std::cout << "Notify done" <<std::endl;
+    }
 }

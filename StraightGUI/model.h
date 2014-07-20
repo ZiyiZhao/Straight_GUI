@@ -30,6 +30,8 @@ public:
 
     void update();
 
+    void playCard(int, int);
+
     int* getTableHeart();
     int* getTableDiamond();
     int* getTableSpade();
@@ -40,6 +42,7 @@ public:
 
     int* getPlayerHand();
     std::string getInfoForPlayer();
+
 private:
 	// Facade Design
     FacadeAdapter *game_;

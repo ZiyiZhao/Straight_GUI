@@ -80,6 +80,9 @@ TableView::~TableView() {}
 
 void TableView::update(){
         // Get the arrays
+
+
+    std::cout << "TableView::update()" << std::endl;
     int *tableHeart_ = model_->getTableHeart();
     int *tableSpade_ = model_->getTableSpade();
     int *tableDiamond_ = model_->getTableDiamond();
@@ -113,4 +116,5 @@ void TableView::update(){
         }
         
     }
+    std::cout << "TableView::update() done" << std::endl;
 }

@@ -33,6 +33,8 @@ public:
     int* getTableClub();
    	
    	int* getPlayerHand();
+
+   	bool playCard(int, int);
 private:
 	
 	// The playing table

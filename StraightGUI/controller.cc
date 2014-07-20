@@ -16,7 +16,8 @@ Controller::Controller(Model *m) : model_(m) {}
 
 void Controller::cardButtonClicked(const int& rank, const int& suit){
     //passed in the rank and the suit of the card
-	std::cout << rank << " " << suit << std::endl;
+	std::cout << "Playing Card " << rank << " "<<suit <<std::endl;
+	model_->playCard(rank, suit);
 
 }
 

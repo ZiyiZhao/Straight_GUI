@@ -34,12 +34,16 @@ PlayerStatusView::PlayerStatusView(Model *model, Gtk::Frame *frame){
 	}
 
 	frame_->add(playerStatusHBox_);
+
+	model_->subscribe(this);
 	
 }
 
 PlayerStatusView::~PlayerStatusView(){}
 
 void PlayerStatusView::update(){
+
+	std::cout << "PlayerStatusView::update()" << std::endl;
 	// Remove any widget
 	frame_->remove();
 
@@ -54,4 +58,6 @@ void PlayerStatusView::update(){
 
 	Gtk::Label playerLabelStatus(oss.str(), 0, 0, false);
 	frame_->add(playerLabelStatus);
+
+	std::cout << "PlayerStatusView::update() done" << std::endl;
 }

@@ -69,6 +69,18 @@ void Model::update() {
 	notify();
 }
 
+void Model::playCard(int rank, int suit) {
+	if(game_->playCard(rank, suit)){
+		infoForPlayer_ = "Your turn, Please choose a card.";
+		std::cout << "Done playing card, updating"<<std::endl;
+		Model::update();
+	} else {
+		std::cout << "invalid play"<<std::endl;
+		infoForPlayer_ = "Invalid play! Please choose another card!";
+	}
+
+}
+
 int* Model::getTableHeart(){
 	return tableHeart_;
 }

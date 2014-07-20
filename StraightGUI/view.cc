@@ -113,7 +113,7 @@ View::~View() {
 
 // update the current view with new content
 void View::update(){
-    //Update
+    
     std::cout <<"Update"<<std::endl;
     show_all();
 }

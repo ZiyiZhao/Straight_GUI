@@ -83,3 +83,7 @@ int* GameTable::getTableSpade() {
 int* GameTable::getTableClub() {
     return tableClub_;
 }
+
+std::vector<Card*> GameTable::getCurrentTable(){
+    return cardsOnTable_;
+}

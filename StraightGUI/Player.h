@@ -28,8 +28,11 @@ public:
     virtual Command* turn(std::vector<Card*>) const = 0;        //check for legal plays from the command
     virtual void displayHand(std::vector<Card*>) const = 0;     //display the current cards on hand
     Card* playCard(const Suit, const Rank);                     //operations to play the card
+    Card* playCard(int,int);
     void discardCard(const Suit, const Rank);                   //operations to discard the card
+    void discardCard(int,int);
     std::vector<Card*> getPlayerHand();
+    int playCardType(int, int, const std::vector<Card*>);       // 1 if valid play, 0 if valid discard, -1 if invalid play
 private:
     Player& operator=(Player&);                                 // Prohibited assignment operator
     void displayGameTable(const std::vector<Card*>, const std::vector<Card*>);

@@ -25,6 +25,8 @@ public:
     int* getTableDiamond();
     int* getTableSpade();
     int* getTableClub();
+
+    std::vector<Card*> getCurrentTable();
     					                         //start the game
 private:
     //void invitePlayers();                   //add players

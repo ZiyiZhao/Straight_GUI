@@ -10,6 +10,7 @@
 #include <vector>
 #include <stdexcept>
 #include <memory>
+#include <iostream>
 
 
 const std::string Player::suits[SUIT_COUNT] = {"C", "D", "H", "S"};
@@ -88,7 +89,6 @@ bool Player::hasSevenSpade() const {
 // If the card is valid play, remove the card from hand and return the card
 Card* Player::playCard(const Suit suit, const Rank rank){
     Card* card = removeCardFromHand(suit, rank);
-    std::cout << "Player " << playerData->playerName_ << " plays " << *card << "." <<std::endl;
     return card;
 }
 
@@ -175,7 +175,6 @@ void Player::discardCard(const Suit suit, const Rank rank){
     //remove the card from hand and add it into the list of discarded cards
     Card* card = removeCardFromHand(suit, rank);
     playerData->discardedCards_.push_back(card);
-    std::cout << "Player " << playerData->playerName_ <<" discards " << *card <<"."<<std::endl;
 }
 
 //clear the cards on hand and also the discarded cards arrays
@@ -186,4 +185,53 @@ void Player::clearHand(){
 
 std::vector<Card*> Player::getPlayerHand(){
     return playerData->cardsInHand_;
+}
+
+// 1 if valid play, 0 if valid discard, -1 if invalid play
+int Player::playCardType(int rank, int suit, const std::vector<Card*> currentTable){
+
+    std::cout << "in " << playerData->playerName_ << std::endl;
+
+    std::vector<Card*> legalPlays = getLegalCards(currentTable);
+
+    std::cout << "legal play: " << legalPlays.size() << std::endl;
+
+    // Get the card hand
+    Card* card;
+    for(int i = 0; i < playerData->cardsInHand_.size(); i++){
+        std::cout << *(playerData->cardsInHand_.at(i)) << std::endl;
+        std::cout << (playerData->cardsInHand_.at(i)->getRank() == (Rank)rank);
+        std::cout << (playerData->cardsInHand_.at(i)->getSuit() == (Suit)suit) << std::endl;
+        if(playerData->cardsInHand_.at(i)->getRank() == (Rank)rank &&
+            playerData->cardsInHand_.at(i)->getSuit() == (Suit)suit) { 
+            card = playerData->cardsInHand_.at(i);
+            std::cout << *card << std::endl;
+            break;
+        }
+    }
+
+    std::cout << "out" << std::endl;    
+
+    for(int i = 0; i < legalPlays.size(); i++){
+        // if the card choosen is in legal cards
+        if(*card == *legalPlays.at(i)){
+            return 1;
+        }
+    }
+
+    // if no legal play
+    if(legalPlays.size() == 0){
+        return 0;
+    }
+
+    // If the card is not in legal play and legal play is not empty
+    return -1;
+}
+
+Card* Player::playCard(int rank, int suit) {
+    return playCard((Suit)suit, (Rank)rank);
+}
+
+void Player::discardCard(int rank, int suit) {
+    discardCard((Suit)suit, (Rank)rank);
 }

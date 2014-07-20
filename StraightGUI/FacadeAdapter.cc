@@ -76,6 +76,23 @@ int* FacadeAdapter::getPlayerHand() {
 	return cardsInHandArr;
 }
 
+bool FacadeAdapter::playCard(int rank, int suit) {
+	std::cout << "In adapter" << std::endl;
+	int playType = players_[currentPlayer_]->playCardType(rank, suit, gameTable_->getCurrentTable());
+	std::cout << "type of play: " << playType << std::endl;
+	if(1 == playType) {
+		gameTable_->addCardToTable(players_[currentPlayer_]->playCard(rank, suit));	
+		currentPlayer_ = ((currentPlayer_ + 1) % 4);
+		return true;
+	} else if(playType == 0) {
+		players_[currentPlayer_]->discardCard(rank, suit);
+		currentPlayer_ = ((currentPlayer_ + 1) % 4);
+		return true;
+	}
+
+	return false;
+}
+
 int* FacadeAdapter::getTableHeart() {
     return gameTable_->getTableHeart();
 }

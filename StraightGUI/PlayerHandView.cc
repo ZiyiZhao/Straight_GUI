@@ -27,7 +27,8 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 		playerCardImage_[i] = new Gtk::Image(deck_.image((Rank)playerHand[i*2],(Suit)playerHand[i*2+1]));
 		playerCards_[i]->set_image(*playerCardImage_[i]);
         
-        playerCards_[i]->signal_clicked().connect( sigc::bind<int, int>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]-> getRank(), playerCards_[i]-> getSuit()) );
+        //playerCards_[i]->signal_clicked().connect( sigc::bind<int, int>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]-> getRank(), playerCards_[i]-> getSuit()) );
+        playerCards_[i]->signal_clicked().connect( sigc::bind<CardButton*>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]));
 
         
 		playerHand_.add(*playerCards_[i]);
@@ -56,13 +57,32 @@ void PlayerHandView::update(){
 	int* cardsInHand = model_->getPlayerHand();
 	for(int i = 0; i < 13; i++) {
 		playerCardImage_[i]->set(deck_.image((Rank)cardsInHand[i*2],(Suit)cardsInHand[i*2+1]));
+		std::cout << "Setting" << std::endl;
+		std::cout << cardsInHand[i*2] << std::endl;
+		if(cardsInHand[i*2] != -1){
+			playerCards_[i]->setRank(cardsInHand[i*2]);
+			playerCards_[i]->setSuit(cardsInHand[i*2+1]);
+			//playerCards_[i]->signal_clicked().connect( sigc::bind<int, int>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]-> getRank(), playerCards_[i]-> getSuit()) );
+		} else {
+			playerCards_[i]->set_sensitive(false);
+		}
 	}
+
+	std::cout << "Done updating hand cards" << std::endl;
 }
 
+
+void PlayerHandView::cardButtonClicked(CardButton *button ){
+	std::cout << "click rank" << button->getRank() << std::endl;
+    controller_ -> cardButtonClicked(button->getRank(), button->getSuit());
+}
+
+/*
 void PlayerHandView::cardButtonClicked(const int& rank,const int& suit ){
+	std::cout << "click rank" << rank << std::endl;
     controller_ -> cardButtonClicked(rank, suit);
 }
-
+*/
 void PlayerHandView::rageButtonClicked(){
     controller_-> rageButtonClicked();
 }
