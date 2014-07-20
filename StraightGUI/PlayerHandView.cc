@@ -50,12 +50,17 @@ PlayerHandView::PlayerHandView(Model *model, Gtk::Frame *frame, Controller *c): 
 	frame_->add(playerOption_);
 	frame_->set_label("Player 1");
     
-    std::cout << "Subscribing playerHandView" << std::endl;
     model_->subscribe(this);
 
 }
 
-PlayerHandView::~PlayerHandView(){}
+PlayerHandView::~PlayerHandView(){
+	delete frame_;
+	for(int i = 0; i < 13; i++){
+		delete playerCards_[i];
+		delete playerCardImage_[i];
+	}
+}
 
 void PlayerHandView::update(){
 
@@ -75,7 +80,7 @@ void PlayerHandView::update(){
 		if(cardsInHand[i*2] != -1){
 			playerCards_[i]->setRank(cardsInHand[i*2]);
 			playerCards_[i]->setSuit(cardsInHand[i*2+1]);
-			//playerCards_[i]->signal_clicked().connect( sigc::bind<int, int>(sigc::mem_fun( *this, &PlayerHandView::cardButtonClicked), playerCards_[i]-> getRank(), playerCards_[i]-> getSuit()) );
+			playerCards_[i]->set_sensitive(true);
 		} else {
 			playerCards_[i]->set_sensitive(false);
 		}
@@ -83,22 +88,13 @@ void PlayerHandView::update(){
 
 	playerInfo_.remove();
 	playerInfo_.add(*(new Gtk::Label(model_->getInfoForPlayer())));
-
-	std::cout << "Done updating hand cards" << std::endl;
 }
 
 
 void PlayerHandView::cardButtonClicked(CardButton *button ){
-	std::cout << "click rank" << button->getRank() << std::endl;
     controller_ -> cardButtonClicked(button->getRank(), button->getSuit());
 }
 
-/*
-void PlayerHandView::cardButtonClicked(const int& rank,const int& suit ){
-	std::cout << "click rank" << rank << std::endl;
-    controller_ -> cardButtonClicked(rank, suit);
-}
-*/
 void PlayerHandView::rageButtonClicked(){
     controller_-> rageButtonClicked();
 }

@@ -35,6 +35,7 @@ public:
     int playCardType(int, int, const std::vector<Card*>);       // 1 if valid play, 0 if valid discard, -1 if invalid play
     std::string getPlayerName();
     int getNumOfDiscardCards();
+    virtual Card* comPlayCard(const std::vector<Card*>) const = 0;
 private:
     Player& operator=(Player&);                                 // Prohibited assignment operator
     void displayGameTable(const std::vector<Card*>, const std::vector<Card*>);
@@ -44,7 +45,7 @@ protected:
     Player(const Player&);                                      // Cope constructor that is used for AI/Human copying
     
     struct PlayerData{
-        const std::string playerName_;
+        std::string playerName_;
         int playerScore_;
         std::vector<Card*> cardsInHand_;
         std::vector<Card*> discardedCards_;

@@ -22,7 +22,7 @@ PlayerStatusView::PlayerStatusView(Model *model, Gtk::Frame *frame){
 	frame_ = frame;
 	model_ = model;
 
-	// Create one frame for each player and add it to HBox
+		// Create one frame for each player and add it to HBox
 	// Create one label for each player and add it to frame
 	for(int i = 0; i < 4; i++) {
 
@@ -34,17 +34,18 @@ PlayerStatusView::PlayerStatusView(Model *model, Gtk::Frame *frame){
 	}
 
 	frame_->add(playerStatusHBox_);
-
-	std::cout << "Subscribing PlayerStatusView" << std::endl;
 	model_->subscribe(this);
 	
 }
 
-PlayerStatusView::~PlayerStatusView(){}
+PlayerStatusView::~PlayerStatusView(){
+	delete frame_;
+	for(int i = 0; i < 4; i++){
+		delete playerStatus_[i];
+	}
+}
 
 void PlayerStatusView::update(){
-
-	std::cout << "PlayerStatusView::update()" << std::endl;
 	// Remove any widget
 	for(int i = 0; i < 4; i++) {
 		playerStatus_[i]->remove();
@@ -52,6 +53,4 @@ void PlayerStatusView::update(){
 		Gtk::Label *playerLabelStatus = new Gtk::Label(model_->getPlayerStatus()[i], 0, 0, false);
 		playerStatus_[i]->add(*playerLabelStatus);
 	}
-
-	std::cout << "PlayerStatusView::update() done" << std::endl;
 }

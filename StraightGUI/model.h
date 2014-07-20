@@ -23,6 +23,7 @@ const int numCards = numFaces * numSuits;
 class Model : public Subject {
 public:
     Model();
+    ~Model();
 
     void setSeed(int);
     
@@ -39,6 +40,7 @@ public:
 
     void updatePlayerStaus();
     void updatePlayerHand();
+    void updateRoundInfo();
 
     void rage();
 
@@ -50,6 +52,9 @@ public:
 
     int getCurrentPlayerType();
     int getCurrentPlayerNumber();
+
+    bool getGameOver();
+    bool getRoundOver();
 
 private:
 	// Facade Design
@@ -75,6 +80,14 @@ private:
     int currentPlayerNumber_;
 
     std::string infoForPlayer_;
+    bool gameOver_;
+    bool roundOver_;
+
+    int lastRoundScore_[4];
+    int lastRoundDiscards_[4];
+
+    int currentRoundScore_[4];
+
 };
 
 

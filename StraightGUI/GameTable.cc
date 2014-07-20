@@ -87,3 +87,7 @@ int* GameTable::getTableClub() {
 std::vector<Card*> GameTable::getCurrentTable(){
     return cardsOnTable_;
 }
+
+bool GameTable::isGameOver(){
+    return cardsOnTable_.size() == 52;
+}

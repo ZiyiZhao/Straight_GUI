@@ -17,6 +17,8 @@ public:
     HumanPlayer(std::string);                                           //constructor
     Command* turn(std::vector<Card*>) const;                            //check for legal commands
     void displayHand(std::vector<Card*>) const;                         //display the cards currently on hand
+    
+    Card* comPlayCard(const std::vector<Card*>) const;
 private:
     void displayGameTable(const std::vector<Card*>, const std::vector<Card*>) const;
                                                                         // display the cards that have already been played

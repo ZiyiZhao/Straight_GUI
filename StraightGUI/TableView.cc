@@ -77,7 +77,15 @@ TableView::TableView(Model *m, Gtk::Frame *f) : heartSuitCardsHBox_(true,5), spa
 
 }
 
-TableView::~TableView() {}
+TableView::~TableView() {
+    delete frameWrapper_;
+    for(int i = 0; i < 13; i++){
+        delete heartCardImg_[i];
+        delete spadeCardImg_[i];
+        delete diamondCardImg_[i];
+        delete clubCardImg_[i];
+    }
+}
 
 void TableView::update(){
         // Get the arrays

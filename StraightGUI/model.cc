@@ -42,19 +42,35 @@ Model::Model(){
 
 }
 
+Model::~Model(){
+	delete game_;
+}
+
 void Model::setSeed(int seed) {
 	seed_ = seed;
 }
 
 void Model::newGame(bool* playerType) {
+	//delete game_;
 	game_->startGame(playerType, seed_);
 
+	for(int i = 0; i < 4; i++) {
+		lastRoundScore_[i] = 0;
+		lastRoundDiscards_[i] = 0;
+	}
+
 	update();
-	updatePlayerStaus();
-	updatePlayerHand();
 	notify();
 }
 
+void Model::updateRoundInfo(){
+	gameOver_ = game_->ifGameOver();
+	roundOver_ = game_->ifRoundOver();
+	for(int i = 0; i < 4; i++) {
+		//currentRoundScore_[i] = game_->getPlayerScore(i);
+
+	}
+}
 
 void Model::update() {
 	for(int i = 0; i < 26; i++) {
@@ -63,6 +79,14 @@ void Model::update() {
 		tableSpade_[i] = game_->getTableSpade()[i];
 		tableClub_[i] = game_->getTableClub()[i];
 	}
+	if(getRoundOver()){
+		for(int i = 0; i < 4; i++){
+			lastRoundScore_[i] += game_->getPlayerScore()[i];
+		}
+	}
+	updatePlayerStaus();
+	updatePlayerHand();
+	updateRoundInfo();
 }
 
 void Model::updatePlayerHand(){
@@ -87,10 +111,10 @@ void Model::updatePlayerStaus(){
 		oss << (i+1);
 		playerType_[i] = oss.str();
 		oss2 << "Player Score:  ";
-		oss2 << game_->getPlayerScore()[i];
+		oss2 << lastRoundScore_[i];//getPlayerScore()[i]
 		oss2 << "\n";
 		oss2 << "Player Discards:  ";
-		oss2 << game_->getDiscardCards()[i];
+		oss2 << game_->getDiscardCards()[i] + lastRoundDiscards_[i];
 		playerStatus_[i] = oss2.str();
 	}
 }
@@ -98,13 +122,9 @@ void Model::updatePlayerStaus(){
 void Model::playCard(int rank, int suit) {
 	if(game_->playCard(rank, suit)){
 		infoForPlayer_ = "Your turn, Please choose a card.";
-		std::cout << "Done playing card, updating"<<std::endl;
-		updatePlayerStaus();
-		updatePlayerHand();
-		Model::update();
+		update();
 		notify();
 	} else {
-		std::cout << "invalid play"<<std::endl;
 		infoForPlayer_ = "Invalid play! Please choose another card!";
 		notify();
 	}
@@ -153,7 +173,15 @@ std::string Model::getInfoForPlayer(){
 
 void Model::rage(){
 	game_->rage();
-	updatePlayerHand();
-	updatePlayerStaus();
+	update();
 	notify();
 }
+
+bool Model::getGameOver(){
+	return gameOver_;
+}
+
+bool Model::getRoundOver(){
+	return roundOver_;
+}
+

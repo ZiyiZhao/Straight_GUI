@@ -94,8 +94,6 @@ View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
     gameWindowWrapper_.add(playerHandWrapper_);
 
     show_all();
-
-    std::cout << "Subscribing view" << std::endl;
     model_->subscribe(this);
 
     // set the seed (initialized to be 0)
@@ -105,6 +103,7 @@ View::View(Controller *c, Model *m): model_(m), controller_(c), seed_(0){
 
 // destructor
 View::~View() {
+    std::cout << "OVER!!" << std::endl;
     delete model_;
     delete controller_;
     delete gameTableView_;
@@ -115,9 +114,14 @@ View::~View() {
 
 // update the current view with new content
 void View::update(){
-    
-    std::cout <<"Update"<<std::endl;
     show_all();
+    if(model_->getGameOver()){
+
+    } else if (model_->getRoundOver()){
+
+    }
+    std::cout << "Round over: " << model_->getRoundOver() << std::endl;
+    std::cout << "Game over: " << model_->getGameOver() << std::endl;
 }
 
 void View::on_menuAction_quit() {
@@ -132,6 +136,7 @@ void View::on_menuAction_new() {
     DialogView dialog(*this);
     // start a new game with player type defined
     model_->newGame(dialog.getPlayerType());
+
 }
 
 // saving the current game
@@ -181,7 +186,6 @@ void View::on_menuAction_seed(Gtk::Window & parentWindow){
         case Gtk::RESPONSE_OK:
             // store the text entry into seed (string)
             stringSeed = (std::string)seedField.get_text();
-            std::cout << "Entered '" << stringSeed << "'" << std::endl;
             break;
         case Gtk::RESPONSE_CANCEL:
             // in case of user event cancel, display message
@@ -197,5 +201,6 @@ void View::on_menuAction_seed(Gtk::Window & parentWindow){
     
     // handle the case when can not be converted
     if(!(convert >> seed_))  seed_ = 0;
+    model_->setSeed(seed_);
     std::cout << "seed_ '" << seed_ << "'" << std::endl;
 }

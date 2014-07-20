@@ -44,7 +44,12 @@ public:
     int getCurrentPlayerNumber();
     int getCurrentPlayerType();
 
+    bool ifGameOver();
+    bool ifRoundOver();
+
     void rage();
+
+    void checkNextPlayer();
 private:
 	
 	// The playing table
@@ -55,6 +60,12 @@ private:
 
 	// Current player number (0 - 3)
 	int currentPlayer_;
+
+  bool gameOver_;
+  bool roundOver_;
+
+  void checkGameOver();
+
 };
 #endif
 

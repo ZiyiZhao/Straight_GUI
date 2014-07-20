@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Player.h"
 #include "HumanPlayer.h"
+#include "Card.h"
 
 class ComputerPlayer: public Player{
 public:
@@ -19,6 +20,8 @@ public:
     ComputerPlayer(const Player& humanPlayer):Player(humanPlayer){};            //copy constructor
     Command* turn(const std::vector<Card*>) const;                              //create a legal command for the computer player
     void displayHand(std::vector<Card*>) const{};
+    
+    Card* comPlayCard(const std::vector<Card*>) const;
     
 };
 

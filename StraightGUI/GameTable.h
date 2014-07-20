@@ -25,6 +25,8 @@ public:
     int* getTableDiamond();
     int* getTableSpade();
     int* getTableClub();
+    
+    bool isGameOver();
 
     std::vector<Card*> getCurrentTable();
     					                         //start the game

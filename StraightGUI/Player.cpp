@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 
 const std::string Player::suits[SUIT_COUNT] = {"C", "D", "H", "S"};
@@ -29,7 +30,11 @@ Player::PlayerData::PlayerData(std::string playerName):playerName_(playerName){
 }
     
 // Copy constructor
-Player::PlayerData::PlayerData(const PlayerData& playerData):playerName_("Computer " + playerData.playerName_[playerData.playerName_.length()-1]){
+Player::PlayerData::PlayerData(const PlayerData& playerData){
+    std::ostringstream oss;
+    oss << "Computer ";
+    oss << playerData.playerName_[playerData.playerName_.length()-1];
+    playerName_ = oss.str();
     playerScore_ = playerData.playerScore_;
     for(unsigned int index = 0; index < playerData.cardsInHand_.size(); index++) {
         cardsInHand_.push_back(playerData.cardsInHand_[index]);
@@ -190,27 +195,17 @@ std::vector<Card*> Player::getPlayerHand(){
 // 1 if valid play, 0 if valid discard, -1 if invalid play
 int Player::playCardType(int rank, int suit, const std::vector<Card*> currentTable){
 
-    std::cout << "in " << playerData->playerName_ << std::endl;
-
     std::vector<Card*> legalPlays = getLegalCards(currentTable);
-
-    std::cout << "legal play: " << legalPlays.size() << std::endl;
 
     // Get the card hand
     Card* card;
     for(int i = 0; i < playerData->cardsInHand_.size(); i++){
-        std::cout << *(playerData->cardsInHand_.at(i)) << std::endl;
-        std::cout << (playerData->cardsInHand_.at(i)->getRank() == (Rank)rank);
-        std::cout << (playerData->cardsInHand_.at(i)->getSuit() == (Suit)suit) << std::endl;
         if(playerData->cardsInHand_.at(i)->getRank() == (Rank)rank &&
             playerData->cardsInHand_.at(i)->getSuit() == (Suit)suit) { 
             card = playerData->cardsInHand_.at(i);
-            std::cout << *card << std::endl;
             break;
         }
-    }
-
-    std::cout << "out" << std::endl;    
+    } 
 
     for(int i = 0; i < legalPlays.size(); i++){
         // if the card choosen is in legal cards

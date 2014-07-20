@@ -146,3 +146,7 @@ std::string HumanPlayer::sort(const std::vector<Card*>& cards) const{
     }
     return combine;
 }
+
+Card* HumanPlayer::comPlayCard(const std::vector<Card*> c) const{
+    return c.at(0);
+}

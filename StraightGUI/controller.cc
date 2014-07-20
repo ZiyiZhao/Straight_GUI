@@ -23,5 +23,4 @@ void Controller::cardButtonClicked(const int& rank, const int& suit){
 void Controller::rageButtonClicked(){
     // PLayer rages
     model_->rage();
-	std::cout << "Rage" << std::endl;
 }
