@@ -25,13 +25,13 @@
 class PlayerStatusView : public Observer{
 public:
    	PlayerStatusView(Model* ,Gtk::Frame*);	// Constructor(model, playerNum, score, discards, isAI)
-   	~PlayerStatusView();
-   	void update();
+   	~PlayerStatusView();                    // desctrucor
+   	void update();                          // inherited function
 private:
-	Gtk::Frame *frame_;
-	Model *model_;
+	Gtk::Frame *frame_;                     // container box
+	Model *model_;                          // pointer to model
 
-	Gtk::HBox playerStatusHBox_;
+	Gtk::HBox playerStatusHBox_;            // container boxes
 	Gtk::Frame *playerStatus_[4];
 };
 #endif

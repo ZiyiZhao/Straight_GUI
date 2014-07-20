@@ -116,11 +116,15 @@ View::~View() {
 void View::update(){
     show_all();
 
+    // update only if round is over
     if (model_->getRoundOver()){
         std::ostringstream oss;
+        
+        // display a dialog for information about round status
         Gtk::Dialog dialog( "Game Status", *this );
         Gtk::VBox* contentArea = dialog.get_vbox();
         oss << "Player Status: \n";
+        //determine player type
         for(int i = 0; i < 4; i++) {
             if(model_->getPlayerType()[i][0] == 'P') {
                 oss << "Player ";
@@ -129,10 +133,12 @@ void View::update(){
             }
             oss << (i + 1);
             oss << " discarded:\n";
+            // get discarded cards
             std::vector<char> discards = model_->getDiscardCards(i);
 
             std::cout << "hihi" << std::endl;
             for(int j = 0; j < discards.size(); j++){
+                // display discarded cards for all 4 players
                 std::cout << "size: "<< discards.size() << std::endl;
                 if(discards.at(j) == '1'){
                     oss << "10";
@@ -142,6 +148,7 @@ void View::update(){
                 if(j%2 == 1)
                     oss << " ";
             }
+            // display pointes earne and total score
             oss << "\nAnd earned ";
             oss << model_->getCurrentRoundScore(i);
             oss << " points, for a total of ";
@@ -153,23 +160,22 @@ void View::update(){
         contentArea->pack_start(message, true, false);
         dialog.show_all_children();
 
-
-        
+        // in case that round ends and game is over
         if (model_->getGameOver()){
-            //if (true){
             
             //in case of multiple player wins
             std::string winnerPlayers = "";
 
-
-            
+            // outputs the player wins
             Gtk::Label winner ("Player " + winnerPlayers + "wins! Congratulations! ");
             contentArea->pack_start(winner, true, false);
             winner.show();
             
+            // game ends
             Gtk::Button * okButton = dialog.add_button( Gtk::Stock::OK, Gtk::RESPONSE_OK);
 
         } else {
+            // if game does not end
             Gtk::Button * nextRoundButton = dialog.add_button( "Continue Game", Gtk::RESPONSE_ACCEPT);
         }
         
@@ -180,8 +186,10 @@ void View::update(){
         switch (result) {
             case Gtk::RESPONSE_OK:
                 // what happens when the game ends?
+                dialog.hide();
                 break;
             case Gtk::RESPONSE_ACCEPT:
+                // reset the model and start a new game
                 model_->reset();
                 model_->newGame();
                 break;
@@ -190,8 +198,6 @@ void View::update(){
                 break;
         } // switch
         
-
-    
     }
     
     

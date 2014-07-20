@@ -59,6 +59,7 @@ private:
 	Gtk::Image *diamondCardImg_[13];    	  	
 	Gtk::Image *clubCardImg_[13];
 
+    // set of arrays that stores current table cards ordered by Suit
 	int currentTableHeart_[26];
 	int currentTableDiamond_[26];
 	int currentTableSpade_[26];

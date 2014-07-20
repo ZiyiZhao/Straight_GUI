@@ -18,7 +18,7 @@
 #include <iostream>
 
 
-
+// constructor, initializes the class datas
 PlayerStatus::PlayerStatus(Gtk::Frame *f, int score, int discards, bool isAI){
 	frame_ = f;
 	score_ = score;
@@ -42,10 +42,13 @@ void PlayerStatus::update(){
 	oss << discards_;
 	oss << "\n";
 
+    //set the lable
 	Gtk::Label *playerLabelStatus = new Gtk::Label(oss.str(), 0, 0, false);
+    // add to frames
 	frame_->add(*playerLabelStatus);
 }
 
+//accessor
 Gtk::Frame* PlayerStatus::getLabel(){
 	return frame_;
 }

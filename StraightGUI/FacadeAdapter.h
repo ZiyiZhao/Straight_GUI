@@ -27,12 +27,12 @@ public:
 
    	void startGame( bool*, int);                // function to start the game
 
-   	int* getTableHeart();
+   	int* getTableHeart();                       // accessors
     int* getTableDiamond();
     int* getTableSpade();
     int* getTableClub();
 
-    int getPlayerScore(int);
+    int getPlayerScore(int);                    // accessors
     int* getDiscardCards();
 
     int* getPlayerName();
@@ -41,26 +41,26 @@ public:
     std::vector<char> getPlayerDiscardHand(int);
     std::vector<char> getAvailableCards();
 
-   	bool playCard(int, int);
+   	bool playCard(int, int);                    // play the given card
 
-    int getCurrentPlayerNumber();
+    int getCurrentPlayerNumber();               // accessors
     int getCurrentPlayerType();
 
-    bool ifGameOver();
+    bool ifGameOver();                          // check for game status
     bool ifRoundOver();
 
-    void rage();
+    void rage();                                // handles rage quites
 
-    void checkNextPlayer();
+    void checkNextPlayer();                     // check for next player
 private:
 	
-	// The playing table
+                                                // The playing table
 	GameTable *gameTable_;
 
-	// The 4 players
+                                                // The 4 players
 	Player *players_[4];
 
-	// Current player number (0 - 3)
+                                                // Current player number (0 - 3)
 	int currentPlayer_;
 
   bool gameOver_;

@@ -20,7 +20,7 @@ class Observer;
 
 class Subject {
 public:
-       void subscribe( Observer* );
+       void subscribe( Observer* );                 // standard subject class
        void unsubscribe( Observer* );
 
 protected:

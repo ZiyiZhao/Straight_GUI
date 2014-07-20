@@ -16,7 +16,7 @@
 GameTable::GameTable(){
     deck_ = new Deck();
 
-    // Initalize the table to be empty
+    // Initalize the every suit on table to be empty
     for(int i = 0; i < 13; i++) {
         tableHeart_[i*2] = -1;
         tableHeart_[i*2+1] = HEART;
@@ -43,7 +43,8 @@ void GameTable::shuffle(int seed) {
 
     // Set the seed to random shuffle
     srand48( seed );
-
+    
+    // call function from logic
     deck_->shuffle();
 }
 
@@ -56,7 +57,8 @@ Card* GameTable::dealCard() {
 void GameTable::addCardToTable(Card *card) {
     // Add the card to table
     cardsOnTable_.push_back(card);
-
+    
+    // add the card to corresponding Suit
     if(card->getSuit() == DIAMOND) {
         tableDiamond_[(int)(card->getRank())*2] = card->getRank();
     } else if(card->getSuit() == HEART) {
@@ -68,26 +70,32 @@ void GameTable::addCardToTable(Card *card) {
     }
 }
 
+// accessor
 int* GameTable::getTableHeart() {
     return tableHeart_;
 }
 
+// accessor
 int* GameTable::getTableDiamond() {
     return tableDiamond_;
 }
 
+// accessor
 int* GameTable::getTableSpade() {
     return tableSpade_;
 }
 
+// accessor
 int* GameTable::getTableClub() {
     return tableClub_;
 }
 
+// accessor
 std::vector<Card*> GameTable::getCurrentTable(){
     return cardsOnTable_;
 }
 
+// check if the game is over
 bool GameTable::isGameOver(){
     return cardsOnTable_.size() == 52;
 }
